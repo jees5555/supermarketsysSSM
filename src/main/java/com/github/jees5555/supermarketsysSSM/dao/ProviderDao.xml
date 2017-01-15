@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.jees5555.supermarketsysSSM.dao.ProviderDao">
+<select id="getProviderList" parameterType="provider" resultType="provider">
+    select * from provider where 1=1
+     <if test="providerName!=null">
+	 and providerName like concat('%',#{providerName},'%')
+	 </if>
+	 <if test="providerInfo!=null">
+	 and providerInfo like concat('%',#{providerInfo},'%')
+	</if>
+	 ORDER BY providerId ASC
+  </select>
+  <select id="getProvider" parameterType="string" resultType="provider">
+  select * from provider where providerId=#{id}
+  </select>
+  <select id="isProviderExistById" parameterType="string" resultType="int">
+  select count(*) from provider where providerId=#{id}
+   </select>
+   <insert id="addProvider" parameterType="provider">
+	insert into provider (providerName,providerInfo,providerAtten,
+	providerTel,providerFax,providerAddress) 
+	values(#{providerName},#{providerInfo},#{providerAtten},
+	#{providerTel},#{providerFax},#{providerAddress})
+	</insert>
+	<update id="updateProvider" parameterType="provider">
+	update provider set providerName=#{providerName},providerInfo=#{providerInfo},providerAtten=#{providerAtten},
+	providerTel=#{providerTel},providerFax=#{providerFax},providerAddress=#{providerAddress} where providerId=#{providerId}
+	</update>
+	 <delete id="deleteProvider" parameterType="string">
+	 delete from provider where providerId =#{id}
+	 </delete>
+</mapper>
