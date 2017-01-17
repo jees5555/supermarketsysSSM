@@ -32,28 +32,28 @@ function check() {
 	providerId=document.getElementById("providerId").value;
 	payStatus=document.getElementById("payStatus").value;
 	if(billMoney==""){
-		document.getElementById("bb").innerHTML="请输入交易金额";
+		document.getElementById("billMoneyMsg").innerHTML="请输入交易金额";
 		pass=false;
 	}else{
-		document.getElementById("bb").innerHTML="";
+		document.getElementById("billMoneyMsg").innerHTML="";
 	}
 	if(productName==""){
-		document.getElementById("cc").innerHTML="请输入商品名称";
+		document.getElementById("productNameMsg").innerHTML="请输入商品名称";
 		pass=false;
 	}else{
-		document.getElementById("cc").innerHTML="";
+		document.getElementById("productNameMsg").innerHTML="";
 	}
 	if(productNum==""){
-		document.getElementById("dd").innerHTML="请输入交易数量";
+		document.getElementById("productNumMsg").innerHTML="请输入交易数量";
 		pass=false;
 	}else{
-		document.getElementById("dd").innerHTML="";
+		document.getElementById("productNumMsg").innerHTML="";
 	}
 	if(providerId==""){
-		document.getElementById("ee").innerHTML="请选择供应商";
+		document.getElementById("providerIdMsg").innerHTML="请选择供应商";
 		pass=false;
 	}else{
-		document.getElementById("ee").innerHTML="";
+		document.getElementById("providerIdMsg").innerHTML="";
 	}
 	if(pass){
 		xmlhttp.open("POST", "billAddOrUpdate", true);
@@ -124,20 +124,23 @@ function del(id) {
 					<tr>
 						<td class="field">交易金额：</td>
 						<td><input id="billMoney" type="text" name="billMoney"
-							class="text" value="${bill.billMoney }" /> <font color="red">*</font><font
-							id="bb" color="red"></font></td>
+							class="text" value="${bill.billMoney }" /> 
+							<font color="red">*</font>
+							<font id="billMoneyMsg" color="red"></font></td>
 					</tr>
 					<tr>
 						<td class="field">商品名称：</td>
 						<td><input id="productName" type="text" name="productName"
-							class="text" value="${bill.productName }" /> <font color="red">*</font><font
-							id="cc" color="red"></font></td>
+							class="text" value="${bill.productName }" />
+							<font color="red">*</font>
+							<font id="productNameMsg" color="red"></font></td>
 					</tr>
 					<tr>
 						<td class="field">交易数量：</td>
 						<td><input id="productNum" type="text" name="productNum"
-							class="text" value="${bill.productNum }" /> <font color="red">*</font><font
-							id="dd" color="red"></font></td>
+							class="text" value="${bill.productNum }" />
+							<font color="red">*</font>
+							<font id="productNumMsg" color="red"></font></td>
 					</tr>
 					<tr>
 						<td class="field">商品描述：</td>
@@ -152,7 +155,9 @@ function del(id) {
 									<option value="${provider.providerId }"
 										${provider.providerId==bill.providerId?"selected":"" }>${provider.providerName }</option>
 								</c:forEach>
-						</select> <font color="red">*</font><font id="ee" color="red"></font></td>
+						</select>
+						<font color="red">*</font>
+						<font id="providerIdMsg" color="red"></font></td>
 					</tr>
 					<tr>
 						<td class="field">是否付款：</td>
