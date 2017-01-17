@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.jees5555.supermarketsysSSM.entity.Bill;
@@ -16,7 +17,7 @@ import com.github.jees5555.supermarketsysSSM.entity.Provider;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.BillService;
 import com.github.jees5555.supermarketsysSSM.service.ProviderService;
-
+import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @Controller
 public class BillController {
 	@Resource
@@ -46,6 +47,7 @@ public class BillController {
 	}
 	
 	@RequestMapping("billAddOrUpdate")
+	@ResponseBody
 	public String billAddOrUpdate(@Validated Bill bill,BindingResult result){
 		if(result.hasErrors()){
 			throw new MyException("参数错误");
@@ -55,12 +57,13 @@ public class BillController {
 		}else{
 			billService.updateBill(bill);
 		}
-		return "redirect:billList";
+		return SUCCESS.getName();
 	}
 	
 	@RequestMapping("billDelete")
+	@ResponseBody
 	public String billDelete(String billId){
 		billService.deleteBill(billId);
-		return "redirect:billList";
+		return SUCCESS.getName();
 	}
 }
