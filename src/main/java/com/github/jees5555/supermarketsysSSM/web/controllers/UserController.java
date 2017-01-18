@@ -41,7 +41,7 @@ public class UserController {
 		session.setAttribute("userId", u.getUserId());
 		session.setAttribute("userName",u.getUserName());
 		session.setAttribute("userRole", u.getUserRole());
-		return "admin_index";	
+		return "redirect:main";	
 	}
 	
 	@RequestMapping("logout")

@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class UserView {
- 
+    @RequestMapping("main")
+    public String toMain(){
+    	return "admin_index";
+    }
 	@RequestMapping("showTop")
 	public String showTop (){
 		return "admin_top";

@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.jees5555.supermarketsysSSM.entity.Provider;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.ProviderService;
+import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 
 @Controller
 public class ProviderController {
@@ -39,6 +41,7 @@ public class ProviderController {
 	}
 	
 	@RequestMapping("providerAddOrUpdate")
+	@ResponseBody
 	public String providerAddOrUpdate(@Validated Provider provider,BindingResult result){
 		if(result.hasErrors()){
 			throw new MyException("参数错误");
@@ -48,12 +51,13 @@ public class ProviderController {
 		}else{
 			providerService.updateProvider(provider);
 		}
-		return "redirect:providerList";
+		return SUCCESS.getName();
 	}
 	
 	@RequestMapping("providerDelete")
+	@ResponseBody
 	public String providerDelete(String providerId){
 		providerService.deleteProvider(providerId);
-		return "redirect:providerList";
+		return SUCCESS.getName();
 	}
 }
