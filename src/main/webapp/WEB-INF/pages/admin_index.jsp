@@ -14,6 +14,7 @@
 		<frame src="${pageContext.request.contextPath}/showWelcome" name="mainFrame" id="mainFrame" />
 	</frameset>
 </frameset>
-<noframes><body>
-</body></noframes>
+<noframes>
+<body/>
+</noframes>
 </html>

@@ -14,13 +14,13 @@
     <c:when test="${sessionScope.userRole==0}">
     <li><a href="billList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_bill.gif" /></a></li>
     <li><a href="toUserUpdate?userId=${sessionScope.userId }" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
-	<li><a href="logout" onClick="javaScript:alert('用户已退出')"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
+	<li><a href="logout" onclick="javaScript:alert('用户已退出')"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
     </c:when>
     <c:otherwise>
 	<li><a href="billList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_bill.gif" /></a></li>
 	<li><a href="providerList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_suppliers.gif" /></a></li>
 	<li><a href="userList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
-	<li><a href="logout" onClick="javaScript:alert('用户已退出')"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
+	<li><a href="logout" onclick="javaScript:alert('用户已退出')"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
 	</c:otherwise>
 	</c:choose>
 </ul>

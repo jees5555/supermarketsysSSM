@@ -12,7 +12,7 @@ public interface UserService {
 	 
 	 public User getUser(String id);
 	 
-	 public int isUserExist(User user);
+	 public boolean isUserExist(User user);
 	 
 	 public int isUserPasswordCorrect(User user);
 	 

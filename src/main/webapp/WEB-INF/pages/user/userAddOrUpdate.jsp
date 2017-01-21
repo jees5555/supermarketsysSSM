@@ -7,84 +7,170 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <script type="text/javascript" >
 var xmlhttp;
+if (window.XMLHttpRequest){
+  xmlhttp=new XMLHttpRequest();
+}else{
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+var userId;
+var userName;
+var userPassword;
+var userPasswordValidate;
+var userSex;
+var userAge;
+var userTel;
+var userAddress;
+var userRole;
+
 function check() {
 	var pass=true;
 	var passwordcheck=true;
-	if(document.getElementById("b").value==""){
-		document.getElementById("bb").innerHTML="请输入用户名称";
+	userId =document.getElementById("userId").value;
+	userName = document.getElementById("userName").value;
+	if(userId==""){
+	userPassword = document.getElementById("userPassword").value;
+	userPasswordValidate = document.getElementById("userPasswordValidate").value;
+	}
+	userSex =document.getElementById("userSex").value;
+	userAge =document.getElementById("userAge").value;
+	userTel = document.getElementById("userTel").value;
+	userAddress = document.getElementById("userAddress").value;
+	userRole = getRadioBoxValue("userRole");
+	function getRadioBoxValue(radioName) { 
+		var obj = document.getElementsByName(radioName);  //这个是以标签的name来取控件
+		    for(i=0; i<obj.length;i++)    {
+		         if(obj[i].checked)    { 
+		              return   obj[i].value; 
+		         } 
+		    }         
+		 return "0";       
+    } 
+	
+	if(userName==""){
+		document.getElementById("userNameMsg").innerHTML="请输入用户名称";
 		pass=false;
 	}else{
-		document.getElementById("bb").innerHTML="";
+		document.getElementById("userNameMsg").innerHTML="";
 	}
-	if(document.getElementById("a").value==""){
-			if(document.getElementById("c").value==""){
-				document.getElementById("cc").innerHTML="请输入用户密码";
+	if(userId==""){
+			if(userPassword==""){
+				document.getElementById("userPasswordMsg").innerHTML="请输入用户密码";
 				passwordcheck=false;
 				pass=false;
 			}else{
-				document.getElementById("cc").innerHTML="";
+				document.getElementById("userPasswordMsg").innerHTML="";
 			}
-			if(document.getElementById("d").value==""){
-				document.getElementById("dd").innerHTML="请再次输入用户密码";
+			if(userPasswordValidate==""){
+				document.getElementById("userPasswordValidateMsg").innerHTML="请再次输入用户密码";
 				passwordcheck=false;
 				pass=false;
 			}else{
-				document.getElementById("dd").innerHTML="";
+				document.getElementById("userPasswordValidateMsg").innerHTML="";
 			}
 			if(passwordcheck){
-				if(document.getElementById("c").value!=document.getElementById("d").value){
-					document.getElementById("dd").innerHTML="两次输入的密码不一致";
+				if(userPassword!=userPasswordValidate){
+					document.getElementById("userPasswordValidateMsg").innerHTML="两次输入的密码不一致";
 					pass=false;
 				}else{
-					document.getElementById("dd").innerHTML="";
+					document.getElementById("userPasswordValidateMsg").innerHTML="";
 				}
 			}
       }
-	if(document.getElementById("e").value==""){
-		document.getElementById("ee").innerHTML="请输入用户年龄";
+	if(userAge==""){
+		document.getElementById("userAgeMsg").innerHTML="请输入用户年龄";
 		pass=false;
 	}else{
-		document.getElementById("ee").innerHTML="";
+		document.getElementById("userAgeMsg").innerHTML="";
 	}
-	if(document.getElementById("f").value==""){
-		document.getElementById("ff").innerHTML="请输入用户电话";
+	if(userTel==""){
+		document.getElementById("userTelMsg").innerHTML="请输入用户电话";
 		pass=false;
 	}else{
-		document.getElementById("ff").innerHTML="";
+		document.getElementById("userTelMsg").innerHTML="";
 	}
 	if(pass){
-		if (window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-		} else {
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange = checkuser;
-		xmlhttp.open("post", "checkUser", true);
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlhttp.send("userId="+document.getElementById("a").value+"&userName="+document.getElementById("b").value);
+		checkuser(true);
+		
 	}
 }
-
-function checkuser(){
-	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-		var data = xmlhttp.responseText.trim();
-		if(data==1){
-			document.getElementById("bb").innerHTML="用户名已存在";
-		}else{
-			if(document.getElementById("a").value==""){
-				alert("添加成功");
-			}else{
-				alert("修改成功");
-			}
-			document.getElementById("form1").submit();
+function doSubmit(){
+	xmlhttp.open("POST", "userAddOrUpdate", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	if(userId==""){
+		xmlhttp.send("userName="+userName+"&userPassword="+userPassword+"&userSex="+userSex
+				+"&userAge="+userAge+"&userTel="+userTel+"&userAddress="+userAddress+"&userRole="+userRole);
+		xmlhttp.onreadystatechange=function(){
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+				    var text=xmlhttp.responseText;
+				    if(text=="success"){
+				    	alert("添加成功");
+				    }else{
+				    	alert("添加失败，你可能没有合适的权限");
+				    }
+				    location.href("userList");
+				  }
 		}
-	}	
+	}else{
+		xmlhttp.send("userId="+userId+"&userName="+userName+"&userSex="+userSex+"&userAge="+userAge
+				+"&userTel="+userTel+"&userAddress="+userAddress+"&userRole="+userRole);
+		xmlhttp.onreadystatechange=function(){
+		   if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			    var text=xmlhttp.responseText;
+			    if(text=="success"){
+			    	alert("修改成功");
+			    }else{
+			    	alert("修改失败，你可能没有合适的权限");
+			    }
+			    if("0"=="${sessionScope.userRole}"){
+			    	location.href("showWelcome");
+			    }else{
+			    	location.href("userList");
+			    }
+			  }
+		 }
+	}
+}
+function checkuser(submit){
+	userId = document.getElementById("userId").value;
+	userName = document.getElementById("userName").value;
+	xmlhttp.open("post", "checkUser", true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	if(userId==""){
+		xmlhttp.send("userName="+userName);
+	}else{
+		xmlhttp.send("userId="+userId+"&userName="+userName);
+	}
+	xmlhttp.onreadystatechange = function(submit) {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var data = xmlhttp.responseText.trim();
+			if(data=="failure"){
+				document.getElementById("userNameMsg").innerHTML="用户名已存在";
+			}else{
+				document.getElementById("userNameMsg").innerHTML="";
+				if(submit){
+					doSubmit();
+				}
+			}
+		}	
+	}
+	
 }
 function del(id) {
 	var con=confirm("确认删除id为"+id+"的用户吗？");
 	if(con){
-		alert("删除成功");
-		location.href ="userDelete?userId="+id;
+		xmlhttp.open("GET","userDelete?userId="+id,true);
+		xmlhttp.send();
+		xmlhttp.onreadystatechange=function(){
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		    var text=xmlhttp.responseText;
+		    if(text=="success"){
+		    	alert("删除成功");
+		    }else{
+		    	alert("删除失败");
+		    }
+		    location.href("userList");
+		  }
+		 }
 	}
 }
 
@@ -100,32 +186,35 @@ function updatePwd(id) {
 		<div class="title">用户管理&gt;&gt;</div>
 
 	</div>
-	<form id="form1" name="form1" method="post" action="userAddOrUpdate" onsubmit="return checkit();">
-		<input  id="a" type="hidden" name="userId" value="${user.userId }"/>
+	<form id="userform" method="post" action="userAddOrUpdate">
+		<input  id="userId" type="hidden" name="userId" value="${user.userId }"/>
 		<div class="content">
 			<table class="box">
 			<tr>
 					<td class="field">用户名称：</td>
-					<td><input type="text" name="userName" class="text" id="b" value="${user.userName }"/> 
-					<font color="red">*</font><font id="bb" color="red"></font></td>
+					<td><input type="text" name="userName" class="text" id="userName" value="${user.userName }" onblur="javascript:checkuser('false')"/> 
+					<font color="red">*</font>
+					<font id="userNameMsg" color="red"></font></td>
 				</tr>
 				<c:if test="${user.userId==null }">
 				<tr>
 					<td class="field">用户密码：</td>
 
-					<td><input type="password" name="userPassword" class="text" id="c" /> 
-					<font color="red">*</font><font id="cc" color="red"></font></td>
+					<td><input type="password" name="userPassword" class="text" id="userPassword" /> 
+					<font color="red">*</font>
+					<font id="userPasswordMsg" color="red"></font></td>
 				</tr>
 			    <tr>
 					<td class="field">确认密码：</td>
-					<td><input type="password" name="userPassword1" class="text" id="d"/> 
-					<font color="red">*</font><font id="dd" color="red"></font></td>
+					<td><input type="password" name="userPasswordValidate" class="text" id="userPasswordValidate"/> 
+					<font color="red">*</font>
+					<font id="userPasswordValidateMsg" color="red"></font></td>
 				</tr>
                 </c:if>
 				<tr>
 					<td class="field">用户性别：</td>
 			 <td>
-				<select name="userSex" id="select">
+				<select name="userSex" id="userSex">
                     <option value="0" ${user.userSex==0?"selected":""}>女</option>
                     <option value="1" ${user.userSex==1?"selected":""}>男</option>
                </select>
@@ -134,20 +223,22 @@ function updatePwd(id) {
 
 				<tr>
 					<td class="field">用户年龄：</td>
-					<td><input type="text" name="userAge" class="text" id="e"
+					<td><input type="text" name="userAge" class="text" id="userAge"
 					 value="${user.userAge }"/> 
-					<font color="red">*</font><font id="ee" color="red"></font></td>
+					<font color="red">*</font>
+					<font id="userAgeMsg" color="red"></font></td>
 				</tr>
 				<tr>
 					<td class="field">用户电话：</td>
-					<td><input type="text" name="userTel" class="text" id="f" 
+					<td><input type="text" name="userTel" class="text" id="userTel" 
 					value="${user.userTel }"/> 
-					<font color="red">*</font><font id="ff" color="red"></font></td>
+					<font color="red">*</font>
+					<font id="userTelMsg" color="red"></font></td>
 
 				</tr>
 				<tr>
 					<td class="field">用户地址：</td>
-					<td><textarea name="userAddress" id="textarea" class="text" cols="45" rows="5">${user.userAddress }</textarea>
+					<td><textarea name="userAddress" id="userAddress" class="text" cols="45" rows="5">${user.userAddress }</textarea>
 					</td>
 				</tr>
 				<c:choose>
@@ -155,14 +246,14 @@ function updatePwd(id) {
 				<tr>
 					<td class="field">用户权限：</td>
 
-					<td><input type="radio" name="userRole" id="auth" value="0" ${user.userRole==0||user.userRole==null?"checked":""}/>普通用户
-					<input type="radio" name="userRole" id="auth" value="1" ${user.userRole==1?"checked":""}/>经理
-					<input type="radio" name="userRole" id="auth" value="2" ${user.userRole==2?"checked":""}/>管理员
+					<td><input type="radio" name="userRole" id="userRole" value="0" ${user.userRole==0||user.userRole==null?"checked":""}/>普通用户
+					<input type="radio" name="userRole" id="userRole" value="1" ${user.userRole==1?"checked":""}/>经理
+					<input type="radio" name="userRole" id="userRole" value="2" ${user.userRole==2?"checked":""}/>管理员
 					</td>
 				</tr>
 				</c:when>
 				<c:otherwise>
-				<input type="hidden"  name="userRole" id="auth" value="0" />
+				<input type="hidden"  name="userRole" id="userRole" value="0" />
 				</c:otherwise>
 				</c:choose>
 			</table>

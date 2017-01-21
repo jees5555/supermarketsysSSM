@@ -29,16 +29,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int isUserExist(User user) {
+	public boolean isUserExist(User user) {
 	int isExistByName= ud.isUserExistByName(user.getUserName());
 	if(user.getUserId()==null){
-		return isExistByName;
+		return isExistByName>=1;
 	}else{
 		String userName2=(ud.getUser(user.getUserId().toString())).getUserName();
 		if(user.getUserName().equals(userName2)){
-			return 0;
+			return false;
 		}else{
-			return 1;
+			return isExistByName>=1;
 		}
 			
 	}

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
-
+import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @Controller
 public class UserController {
 	@Resource
@@ -74,24 +74,25 @@ public class UserController {
 	@RequestMapping("checkUser")
 	@ResponseBody
 	public String checkUser(User user){
-		int isExist=userService.isUserExist(user);
-		return String.valueOf(isExist);
+		boolean isExist=userService.isUserExist(user);
+		if(isExist){
+			return FAILURE.getName();
+		}else{
+			return SUCCESS.getName();
+		}
 	}
 	@RequestMapping("userAddOrUpdate")
+	@ResponseBody
 	public String userAddOrUpdate(@Validated User user,BindingResult result,HttpSession session){
 		if(result.hasErrors()){
 			throw new MyException("参数错误");
 			}
-		
 		if(user.getUserId()==null){
 			userService.addUser(user);
 		}else{
 			userService.updateUser(user);
 		}
-		if((Integer)session.getAttribute("userRole")==0){
-			return "redirect:showWelcome";
-		}
-		return "redirect:userList";
+		return SUCCESS.getName();
 	}
 	@RequestMapping("toUserPasswordUpdate")
 	public String toUserPasswordUpdate(String userId,Model model){
@@ -114,8 +115,9 @@ public class UserController {
 	}
 	
 	@RequestMapping("userDelete")
+	@ResponseBody
 	public String userDelete(String userId){
 		userService.deleteUser(userId);
-		return "redirect:userList";
+		return SUCCESS.getName();
 	}
 }
