@@ -34,6 +34,13 @@
   </props>
   </property>
 </bean>
+<!-- 拦截器  -->
+<mvc:interceptors>
+	<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.github.jees5555.supermarketsysSSM.intercepter.LoginIntercepter"/>
+     </mvc:interceptor>
+</mvc:interceptors>
   
 
 </beans>
