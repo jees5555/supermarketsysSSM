@@ -47,9 +47,13 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public int isUserPasswordCorrect(User user){
-		return ud.isUserPasswordCorrect(user);
-		 
+	public boolean isUserPasswordCorrect(User user){
+		int userCount= ud.isUserPasswordCorrect(user);
+		if(userCount==1){
+		    return true;
+		}else{
+		    return false;
+		}
 	 }
 
 	@Override

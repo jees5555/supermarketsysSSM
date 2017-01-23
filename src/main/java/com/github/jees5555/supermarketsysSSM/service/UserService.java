@@ -14,7 +14,7 @@ public interface UserService {
 	 
 	 public boolean isUserExist(User user);
 	 
-	 public int isUserPasswordCorrect(User user);
+	 public boolean isUserPasswordCorrect(User user);
 	 
 	 public int addUser(User user);
 	 

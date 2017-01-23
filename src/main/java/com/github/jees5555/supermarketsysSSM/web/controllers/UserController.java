@@ -102,16 +102,23 @@ public class UserController {
 	@RequestMapping("checkUserPassword")
 	@ResponseBody
 	public String checkUserPassword(User user){
-		int isCorrect=userService.isUserPasswordCorrect(user);
-		return String.valueOf(isCorrect);
+		boolean isCorrect=userService.isUserPasswordCorrect(user);
+		if(isCorrect){
+			return SUCCESS.getName();
+		}else{
+			return FAILURE.getName();
+		}
+		
 	}
 	@RequestMapping("userPasswordUpdate")
+	@ResponseBody
 	public String userPasswordUpdate(User user,HttpSession session){
-		userService.updateUserPassword(user);
-		if((Integer)session.getAttribute("userRole")==0){
-			return "redirect:showWelcome";
+		int count=userService.updateUserPassword(user);
+		if(count==1){
+			return SUCCESS.getName();
+		}else{
+			return FAILURE.getName();
 		}
-		return "redirect:userList";
 	}
 	
 	@RequestMapping("userDelete")

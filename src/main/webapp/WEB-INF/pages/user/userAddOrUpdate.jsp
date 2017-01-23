@@ -121,11 +121,7 @@ function doSubmit(){
 			    }else{
 			    	alert("修改失败，你可能没有合适的权限");
 			    }
-			    if("0"=="${sessionScope.userRole}"){
-			    	location.href("showWelcome");
-			    }else{
-			    	location.href("userList");
-			    }
+			      location.href("userAfterOperateShow");
 			  }
 		 }
 	}

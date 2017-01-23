@@ -8,58 +8,82 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <script type="text/javascript">
 var xmlhttp;
+if (window.XMLHttpRequest){
+  xmlhttp=new XMLHttpRequest();
+}else{
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+var userId;
+var userPasswordOld;
+var userPassword;
+var userPassword1;
+
 function check() {
 	var pass =true;
 	var passwordcheck=true;
-	if(document.getElementById("a").value==""){
-		document.getElementById("aa").innerHTML="请输入旧密码";
+	userId =document.getElementById("userId").value;
+	userPasswordOld =document.getElementById("userPasswordOld").value;
+	userPassword =document.getElementById("userPassword").value;
+	userPassword1=document.getElementById("userPassword1").value;
+	if(userPasswordOld==""){
+		document.getElementById("userPasswordOldMsg").innerHTML="请输入旧密码";
 		pass=false;
 	}else{
-		document.getElementById("aa").innerHTML="";
+		document.getElementById("userPasswordOldMsg").innerHTML="";
 	}
-	if(document.getElementById("b").value==""){
-		document.getElementById("bb").innerHTML="请输入新密码";
+	if(userPassword==""){
+		document.getElementById("userPasswordMsg").innerHTML="请输入新密码";
 		pass=false;
 	}else{
-		document.getElementById("bb").innerHTML="";
+		document.getElementById("userPasswordMsg").innerHTML="";
 	}
-	if(document.getElementById("c").value==""){
-		document.getElementById("cc").innerHTML="请再次输入密码";
+	if(userPassword1==""){
+		document.getElementById("userPassword1Msg").innerHTML="请再次输入密码";
 		passwordcheck=false;
 		pass=false;
 	}else{
-		document.getElementById("cc").innerHTML="";
+		document.getElementById("userPassword1Msg").innerHTML="";
 	}
 	if(passwordcheck){
-		if(document.getElementById("b").value!=document.getElementById("c").value){
-			document.getElementById("bb").innerHTML="两次输入的密码不一致";
+		if(userPassword!=userPassword1){
+			document.getElementById("userPasswordMsg").innerHTML="两次输入的密码不一致";
 			pass=false;
 		}else{
-			document.getElementById("bb").innerHTML="";
-			if (window.XMLHttpRequest) {
-				xmlhttp = new XMLHttpRequest();
-			} else {
-				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
+			document.getElementById("userPasswordMsg").innerHTML="";
 			xmlhttp.onreadystatechange = checkuserpassword;
 			xmlhttp.open("post", "checkUserPassword", true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("userId="+document.getElementById("x").value+"&userPassword="+document.getElementById("a").value);
+			xmlhttp.send("userId="+userId+"&userPassword="+userPasswordOld);
 		}
 	}
 }
 function checkuserpassword() {
 	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 		var data = xmlhttp.responseText.trim();
-		if(data=="0"){
-			document.getElementById("aa").innerHTML="密码错误";
+		if(data=="success"){
+			document.getElementById("userPasswordOldMsg").innerHTML="";
+			doSubmit();
 		}else {
-			document.getElementById("aa").innerHTML="";
-			alert("修改成功");
-			document.getElementById("form1").submit();
-			
+			document.getElementById("userPasswordOldMsg").innerHTML="旧密码错误";
 		}
 	}
+}
+function doSubmit(){
+	xmlhttp.open("POST", "userPasswordUpdate", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("userId="+userId+"&userPassword="+userPassword);
+	xmlhttp.onreadystatechange=function(){
+			if (xmlhttp.readyState==4 && xmlhttp.status==200){
+				  var text=xmlhttp.responseText;
+				  if(text=="success"){
+				     alert("修改成功");
+				  }else{
+				     alert("修改失败");
+				  }
+				    location.href("userAfterOperateShow");
+				  }
+		}
+	
 }
 </script>
 </head>
@@ -69,25 +93,28 @@ function checkuserpassword() {
 		<div class="title">用户管理&gt;&gt;</div>
 	</div>
 	<form id="form1" name="form1" method="post" action="userPasswordUpdate" onsubmit="return checkit();">
-		<input id="x" name="userId" value="${requestScope.userId}" type="hidden" />
+		<input id="userId" name="userId" value="${requestScope.userId}" type="hidden" />
 		<div class="content">
 		<font color="red"></font>
 			<table class="box" >
 			<tbody><tr>
 					<td class="field">旧的密码：</td>
-					<td><input name="userPasswordOld" id="a" class="text" type="password" /> 
-					<font id="aa" color="red"></font><font id="aa" color="red"></font></td>
+					<td><input name="userPasswordOld" id="userPasswordOld" class="text" type="password" /> 
+					<font color="red">*</font>
+					<font id="userPasswordOldMsg" color="red"></font></td>
 				</tr>
 				<tr>
 					<td class="field">新的密码：</td>
-					<td><input name="userPassword" id="b" class="text" type="password" /> 
-					<font id="bb" color="red"></font><font id="bb" color="red"></font></td>
+					<td><input name="userPassword" id="userPassword" class="text" type="password" /> 
+					<font color="red">*</font>
+					<font id="userPasswordMsg" color="red"></font></td>
 
 				</tr>
 			     <tr>
 					<td class="field">确认密码：</td>
-					<td><input name="userPassword1" id="c" class="text" type="password" /> 
-					<font id="cc" color="red"></font><font id="cc" color="red"></font></td>
+					<td><input name="userPassword1" id="userPassword1" class="text" type="password" /> 
+					<font color="red">*</font>
+					<font id="userPassword1Msg" color="red"></font></td>
 				</tr>
 				
 			</tbody></table>
