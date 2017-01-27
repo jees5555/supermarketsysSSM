@@ -31,7 +31,7 @@ function check() {
 <div id="login">
 	<div class="icon"></div>
 	<div class="login-box">
-		<form id="loginform" method="post" action="${pageContext.request.contextPath}/login">
+		<form id="loginform" method="post" action="${pageContext.request.contextPath}/user/login">
 			<dl>
 				<dt>用户名：</dt>
 				<dd><input id="a" type="text" name="userName" class="input-text" /></dd>

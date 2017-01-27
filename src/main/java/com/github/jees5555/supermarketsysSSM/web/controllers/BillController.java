@@ -19,6 +19,7 @@ import com.github.jees5555.supermarketsysSSM.service.BillService;
 import com.github.jees5555.supermarketsysSSM.service.ProviderService;
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @Controller
+@RequestMapping("bill")
 public class BillController {
 	@Resource
     private BillService billService;
@@ -35,7 +36,13 @@ public class BillController {
 		return mav;
 	}
 	
-	
+	@RequestMapping("toBillAdd")
+	public String toBillAdd (Model model){
+		model.addAttribute("bill", new Bill());
+		List<Provider> providerList =providerService.getProviderList(new Provider());
+		model.addAttribute("providerList", providerList);
+		return "bill/billAddOrUpdate";
+	}
 	
 	@RequestMapping("toBillUpdate")
 	public String toBillUpdate (String billId,Model model){

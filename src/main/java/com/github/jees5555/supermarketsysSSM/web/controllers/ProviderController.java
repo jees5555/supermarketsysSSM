@@ -18,6 +18,7 @@ import com.github.jees5555.supermarketsysSSM.service.ProviderService;
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 
 @Controller
+@RequestMapping("provider")
 public class ProviderController {
 	
     @Resource
@@ -32,6 +33,10 @@ public class ProviderController {
 		mav.addObject("providerInfo", provider.getProviderInfo());
 		return mav;
    }
+	@RequestMapping("toProviderAdd")
+	public String toProviderAdd (){
+		return "provider/providerAddOrUpdate";
+	}
 	
 	@RequestMapping("toProviderUpdate")
 	public String toProviderUpdate (String providerId,Model model){

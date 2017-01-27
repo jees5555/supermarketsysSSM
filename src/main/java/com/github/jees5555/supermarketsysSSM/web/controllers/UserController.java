@@ -20,14 +20,10 @@ import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @Controller
+@RequestMapping("user")
 public class UserController {
 	@Resource
 	private UserService userService;
-	
-	@RequestMapping({"/","index"})
-	public String toLogin (){
-		return "login";
-	}
 
 	@RequestMapping(method=RequestMethod.POST,value="/login")
 	public String login(User user,Model model,HttpSession session){
@@ -37,11 +33,10 @@ public class UserController {
 			model.addAttribute("msg", "用户名或密码不正确");
 			return "login";
 		}
-	
 		session.setAttribute("userId", u.getUserId());
 		session.setAttribute("userName",u.getUserName());
 		session.setAttribute("userRole", u.getUserRole());
-		return "redirect:main";	
+		return "redirect:/main";	
 	}
 	
 	@RequestMapping("logout")
@@ -62,6 +57,10 @@ public class UserController {
 		mav.addObject("userList", userList);
 		mav.addObject("userName", user.getUserName());
 		return mav;
+	}
+	@RequestMapping("toUserAdd")
+	public String toUserAdd (){
+		return "user/userAddOrUpdate";
 	}
 	
 	@RequestMapping("toUserUpdate")
@@ -120,7 +119,14 @@ public class UserController {
 			return FAILURE.getName();
 		}
 	}
-	
+	@RequestMapping("userAfterOperateShow")
+	public String userAfterOperateShow(HttpSession session){
+		if((Integer)session.getAttribute("userRole")==0){
+			return "redirect:/showWelcome";
+		}else{
+			return "redirect:userList";
+		}
+	}
 	@RequestMapping("userDelete")
 	@ResponseBody
 	public String userDelete(String userId){

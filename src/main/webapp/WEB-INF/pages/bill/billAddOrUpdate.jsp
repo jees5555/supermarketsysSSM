@@ -69,7 +69,7 @@ function check() {
 					    }else{
 					    	alert("添加失败");
 					    }
-					    location.href("billList");
+					    location.href="billList";
 					  }
 			}
 		}else{
@@ -83,7 +83,7 @@ function check() {
 				    }else{
 				    	alert("修改失败");
 				    }
-				    location.href("billList");
+				    location.href="billList";
 				  }
 			 }
 		}
@@ -104,7 +104,7 @@ function del(id) {
 		    }else{
 		    	alert("删除失败");
 		    }
-		    location.href("billList");
+		    location.href="billList";
 		  }
 		 }
 	}

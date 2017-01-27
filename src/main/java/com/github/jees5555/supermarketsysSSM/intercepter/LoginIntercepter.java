@@ -25,6 +25,7 @@ public class LoginIntercepter extends BaseIntercepter {
 		} else {
 			// 非法请求 即这些请求需要登录后才能访问
 			// 重定向到登录页面
+			response.setContentType("text/html; charset=UTF-8");
 			response.getWriter().println("<html>");  
 			response.getWriter().println("<script>");  
 			response.getWriter().println("alert('你尚未登陆或会话已过期');"); 

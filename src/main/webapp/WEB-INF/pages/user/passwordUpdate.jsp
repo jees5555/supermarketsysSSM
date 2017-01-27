@@ -80,7 +80,7 @@ function doSubmit(){
 				  }else{
 				     alert("修改失败");
 				  }
-				    location.href("userAfterOperateShow");
+				    location.href="userAfterOperateShow";
 				  }
 		}
 	

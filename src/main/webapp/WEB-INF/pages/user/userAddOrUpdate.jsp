@@ -89,7 +89,7 @@ function check() {
 		document.getElementById("userTelMsg").innerHTML="";
 	}
 	if(pass){
-		checkuser(true);
+		checkuser(1);
 		
 	}
 }
@@ -107,7 +107,7 @@ function doSubmit(){
 				    }else{
 				    	alert("添加失败，你可能没有合适的权限");
 				    }
-				    location.href("userList");
+				    location.href="userList";
 				  }
 		}
 	}else{
@@ -121,15 +121,15 @@ function doSubmit(){
 			    }else{
 			    	alert("修改失败，你可能没有合适的权限");
 			    }
-			      location.href("userAfterOperateShow");
+			      location.href="userAfterOperateShow";
 			  }
 		 }
 	}
 }
-function checkuser(submit){
+function checkuser(sub){
 	userId = document.getElementById("userId").value;
 	userName = document.getElementById("userName").value;
-	xmlhttp.open("post", "checkUser", true);
+	xmlhttp.open("post", "checkUser", false);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	if(userId==""){
 		xmlhttp.send("userName="+userName);
@@ -143,7 +143,7 @@ function checkuser(submit){
 				document.getElementById("userNameMsg").innerHTML="用户名已存在";
 			}else{
 				document.getElementById("userNameMsg").innerHTML="";
-				if(submit){
+				if(sub==1){
 					doSubmit();
 				}
 			}
@@ -164,7 +164,7 @@ function del(id) {
 		    }else{
 		    	alert("删除失败");
 		    }
-		    location.href("userList");
+		    location.href="userList";
 		  }
 		 }
 	}
@@ -188,7 +188,7 @@ function updatePwd(id) {
 			<table class="box">
 			<tr>
 					<td class="field">用户名称：</td>
-					<td><input type="text" name="userName" class="text" id="userName" value="${user.userName }" onblur="javascript:checkuser('false')"/> 
+					<td><input type="text" name="userName" class="text" id="userName" value="${user.userName }" onblur="javascript:checkuser('0')"/> 
 					<font color="red">*</font>
 					<font id="userNameMsg" color="red"></font></td>
 				</tr>
