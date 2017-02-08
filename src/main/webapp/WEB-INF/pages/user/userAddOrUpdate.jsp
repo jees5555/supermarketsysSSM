@@ -7,11 +7,7 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <script type="text/javascript" >
 var xmlhttp;
-if (window.XMLHttpRequest){
-  xmlhttp=new XMLHttpRequest();
-}else{
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-}
+
 var userId;
 var userName;
 var userPassword;
@@ -21,6 +17,16 @@ var userAge;
 var userTel;
 var userAddress;
 var userRole;
+
+init();
+
+function init() {
+	if (window.XMLHttpRequest){
+		  xmlhttp=new XMLHttpRequest();
+		}else{
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+}
 
 function check() {
 	var pass=true;
@@ -94,11 +100,10 @@ function check() {
 	}
 }
 function doSubmit(){
+	init();
 	xmlhttp.open("POST", "userAddOrUpdate", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	if(userId==""){
-		xmlhttp.send("userName="+userName+"&userPassword="+userPassword+"&userSex="+userSex
-				+"&userAge="+userAge+"&userTel="+userTel+"&userAddress="+userAddress+"&userRole="+userRole);
 		xmlhttp.onreadystatechange=function(){
 			  if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				    var text=xmlhttp.responseText;
@@ -110,9 +115,9 @@ function doSubmit(){
 				    location.href="userList";
 				  }
 		}
+		xmlhttp.send("userName="+userName+"&userPassword="+userPassword+"&userSex="+userSex
+				+"&userAge="+userAge+"&userTel="+userTel+"&userAddress="+userAddress+"&userRole="+userRole);
 	}else{
-		xmlhttp.send("userId="+userId+"&userName="+userName+"&userSex="+userSex+"&userAge="+userAge
-				+"&userTel="+userTel+"&userAddress="+userAddress+"&userRole="+userRole);
 		xmlhttp.onreadystatechange=function(){
 		   if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			    var text=xmlhttp.responseText;
@@ -124,32 +129,38 @@ function doSubmit(){
 			      location.href="userAfterOperateShow";
 			  }
 		 }
+		xmlhttp.send("userId="+userId+"&userName="+userName+"&userSex="+userSex+"&userAge="+userAge
+				+"&userTel="+userTel+"&userAddress="+userAddress+"&userRole="+userRole);
 	}
 }
-function checkuser(sub){
+function checkuser(isSubmit){
 	userId = document.getElementById("userId").value;
 	userName = document.getElementById("userName").value;
 	xmlhttp.open("post", "checkUser", false);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	//需要另行创建方法才能在ajax中传递参数，function(param)无效
+	xmlhttp.onreadystatechange = function() {
+		checkuser2(isSubmit);
+	}
 	if(userId==""){
 		xmlhttp.send("userName="+userName);
 	}else{
 		xmlhttp.send("userId="+userId+"&userName="+userName);
 	}
-	xmlhttp.onreadystatechange = function(submit) {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			var data = xmlhttp.responseText.trim();
-			if(data=="failure"){
-				document.getElementById("userNameMsg").innerHTML="用户名已存在";
-			}else{
-				document.getElementById("userNameMsg").innerHTML="";
-				if(sub==1){
-					doSubmit();
-				}
-			}
-		}	
-	}
 	
+}
+function checkuser2(isSubmit){
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		var data = xmlhttp.responseText.trim();
+		if(data=="failure"){
+			document.getElementById("userNameMsg").innerHTML="用户名已存在";
+		}else{
+			document.getElementById("userNameMsg").innerHTML="";
+			if(isSubmit==1){
+				doSubmit();
+			}
+		}
+	}	
 }
 function del(id) {
 	var con=confirm("确认删除id为"+id+"的用户吗？");

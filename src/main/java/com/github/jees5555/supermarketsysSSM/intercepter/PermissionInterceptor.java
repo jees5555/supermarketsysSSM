@@ -24,7 +24,6 @@ public class PermissionInterceptor extends BaseIntercepter {
 		// 截取模块名称
 		String[] urls = path.split("/");
 		String model = urls[1];
-		System.out.println(path);
 		// 排除项目
 		if (urls.length<=2|| path.contains("login") || path.contains("logout")) {
 			return true;
