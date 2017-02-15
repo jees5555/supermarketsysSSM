@@ -17,6 +17,8 @@ import com.github.jees5555.supermarketsysSSM.entity.Provider;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.BillService;
 import com.github.jees5555.supermarketsysSSM.service.ProviderService;
+import com.github.jees5555.supermarketsysSSM.util.Page;
+
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @Controller
 @RequestMapping("bill")
@@ -27,12 +29,13 @@ public class BillController {
 	private ProviderService providerService;
 	
 	@RequestMapping("billList")
-	public ModelAndView userList(Bill bill){
-		List<Bill> billList=billService.getBillList(bill);
+	public ModelAndView userList(Bill bill,Page page){
+		List<Bill> billList=billService.getBillList(bill,page);
 		ModelAndView mav =new ModelAndView("bill/billList");
 		mav.addObject("billList", billList);
 		mav.addObject("productName", bill.getProductName());
 		mav.addObject("payStatus", bill.getPayStatus());
+		mav.addObject("page",page);
 		return mav;
 	}
 	

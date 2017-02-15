@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.jees5555.supermarketsysSSM.dao.BillDao;
 import com.github.jees5555.supermarketsysSSM.entity.Bill;
 import com.github.jees5555.supermarketsysSSM.service.BillService;
+import com.github.jees5555.supermarketsysSSM.util.Page;
 
 @Service
 public class BillServiceImpl implements BillService{
@@ -18,8 +19,9 @@ public class BillServiceImpl implements BillService{
 	this.bd = bd;
 }
 
-	public List<Bill> getBillList(Bill bill) {
-		return bd.getBillList(bill);
+	public List<Bill> getBillList(Bill bill,Page page) {
+		page.setTotalPage(bd.getBillTotalItems(bill));
+		return bd.getBillList(bill,page);
 		
 	}
 

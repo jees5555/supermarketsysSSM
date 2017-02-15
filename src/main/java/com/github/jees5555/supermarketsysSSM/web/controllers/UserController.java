@@ -28,7 +28,6 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.POST,value="/login")
 	public String login(User user,Model model,HttpSession session){
 		User u=userService.login(user);
-		System.out.println(user.getUserName()+"  "+user.getUserPassword());
 		if(u==null){
 			model.addAttribute("msg", "用户名或密码不正确");
 			return "login";

@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.jees5555.supermarketsysSSM.dao.BillDao">
-<select id="getBillList" parameterType="bill" resultType="bill">
-    select bill.*,provider.providerName from bill,provider where bill.providerId=provider.providerId 
+<select id="getBillTotalItems"  parameterType="bill" resultType="int">
+select count(*) from bill
+    <where>
      <if test="productName!=null">
 	 and productName like concat('%',#{productName},'%') 
 	 </if>
 	 <if test="payStatus!=null">
 	 and payStatus=#{payStatus} 
 	</if>
-	ORDER BY billId ASC
+	</where> 
+</select>
+<select id="getBillList" resultType="bill">
+    select bill.*,provider.providerName from bill,provider where bill.providerId=provider.providerId 
+     <if test="bill.productName!=null">
+	 and productName like concat('%',#{bill.productName},'%') 
+	 </if>
+	 <if test="bill.payStatus!=null">
+	 and payStatus=#{bill.payStatus} 
+	</if>
+	ORDER BY billId ASC 
+	limit #{page.mySQLLimitStart},#{page.itemsPerPage}
   </select>
+  
   <select id="getBill" parameterType="string" resultType="bill">
   select * from bill where billId=#{id}
   </select>
