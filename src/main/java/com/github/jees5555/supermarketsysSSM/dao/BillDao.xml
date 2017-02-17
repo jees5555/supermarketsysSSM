@@ -13,15 +13,22 @@ select count(*) from bill
 	</where> 
 </select>
 <select id="getBillList" resultType="bill">
-    select bill.*,provider.providerName from bill,provider where bill.providerId=provider.providerId 
+    select bill.*,provider.providerName from bill,provider 
+    <where>
+    bill.providerId=provider.providerId 
+     <if test="bill!=null">
      <if test="bill.productName!=null">
 	 and productName like concat('%',#{bill.productName},'%') 
 	 </if>
 	 <if test="bill.payStatus!=null">
 	 and payStatus=#{bill.payStatus} 
 	</if>
+	</if>
+	</where>
 	ORDER BY billId ASC 
+	<if test="page!=null">
 	limit #{page.mySQLLimitStart},#{page.itemsPerPage}
+	</if>
   </select>
   
   <select id="getBill" parameterType="string" resultType="bill">

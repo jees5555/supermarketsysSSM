@@ -3,10 +3,11 @@ package com.github.jees5555.supermarketsysSSM.service;
 import java.util.List;
 
 import com.github.jees5555.supermarketsysSSM.entity.Provider;
+import com.github.jees5555.supermarketsysSSM.util.Page;
 
 public interface ProviderService {
 	
- public List<Provider> getProviderList(Provider provider);
+ public List<Provider> getProviderList(Provider provider,Page page);
  
  public Provider getProvider(String id);
  

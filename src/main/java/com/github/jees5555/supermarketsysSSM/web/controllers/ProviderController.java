@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.Provider;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.ProviderService;
+import com.github.jees5555.supermarketsysSSM.util.Page;
+
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 
 @Controller
@@ -25,12 +27,13 @@ public class ProviderController {
 	private ProviderService providerService;
 	
 	@RequestMapping("providerList")
-	public ModelAndView providerList(Provider provider){
-		List<Provider> providerList=providerService.getProviderList(provider);
+	public ModelAndView providerList(Provider provider,Page page){
+		List<Provider> providerList=providerService.getProviderList(provider,page);
 		ModelAndView mav =new ModelAndView("provider/providerList");
 		mav.addObject("providerList", providerList);
 		mav.addObject("providerName", provider.getProviderName());
 		mav.addObject("providerInfo", provider.getProviderInfo());
+		mav.addObject("page",page);
 		return mav;
    }
 	@RequestMapping("toProviderAdd")

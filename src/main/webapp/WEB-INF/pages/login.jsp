@@ -8,6 +8,10 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <script type="text/javascript">
 var xmlhttp;
+function keyLogin(){
+	 if (event.keyCode==13)  //回车键的键值为13
+	   check();//调用登录按钮的登录事件
+	}
 function check() {
 	var pass = true;
 	if(document.getElementById("a").value==""){
@@ -34,9 +38,9 @@ function check() {
 		<form id="loginform" method="post" action="${pageContext.request.contextPath}/user/login">
 			<dl>
 				<dt>用户名：</dt>
-				<dd><input id="a" type="text" name="userName" class="input-text" /></dd>
+				<dd><input id="a" type="text" name="userName" class="input-text" onkeydown="keyLogin()"/></dd>
 				<dt>密　码：</dt>
-				<dd><input id="b" type="password" name="userPassword" class="input-text" /></dd>
+				<dd><input id="b" type="password" name="userPassword" class="input-text" onkeydown="keyLogin()"/></dd>
 			</dl>
 			<div class="buttons">
 				<input type="button" onclick="check();" name="login" value="登录系统" class="input-button" />

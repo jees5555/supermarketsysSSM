@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.jees5555.supermarketsysSSM.dao.ProviderDao;
 import com.github.jees5555.supermarketsysSSM.entity.Provider;
 import com.github.jees5555.supermarketsysSSM.service.ProviderService;
+import com.github.jees5555.supermarketsysSSM.util.Page;
 
 @Service
 public class ProviderServiceImpl implements ProviderService{
@@ -15,8 +16,11 @@ public class ProviderServiceImpl implements ProviderService{
 	private ProviderDao pd;
 
 	@Override
-	public List<Provider> getProviderList(Provider provider) {
-		return pd.getProviderList(provider);
+	public List<Provider> getProviderList(Provider provider,Page page) {
+		if(page != null){
+			page.setTotalPage(pd.getProviderTotalItems(provider));
+		}
+		return pd.getProviderList(provider,page);
 	}
 
 	@Override

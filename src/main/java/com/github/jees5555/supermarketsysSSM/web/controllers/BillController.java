@@ -42,7 +42,7 @@ public class BillController {
 	@RequestMapping("toBillAdd")
 	public String toBillAdd (Model model){
 		model.addAttribute("bill", new Bill());
-		List<Provider> providerList =providerService.getProviderList(new Provider());
+		List<Provider> providerList =providerService.getProviderList(null,null);
 		model.addAttribute("providerList", providerList);
 		return "bill/billAddOrUpdate";
 	}
@@ -51,7 +51,7 @@ public class BillController {
 	public String toBillUpdate (String billId,Model model){
 		Bill bill=billService.getBill(billId);
 		model.addAttribute("bill", bill);
-		List<Provider> providerList =providerService.getProviderList(new Provider());
+		List<Provider> providerList =providerService.getProviderList(null,null);
 		model.addAttribute("providerList", providerList);
 		return "bill/billAddOrUpdate";
 	}

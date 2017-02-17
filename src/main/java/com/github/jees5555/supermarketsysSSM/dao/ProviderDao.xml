@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.jees5555.supermarketsysSSM.dao.ProviderDao">
-<select id="getProviderList" parameterType="provider" resultType="provider">
-    select * from provider where 1=1
-     <if test="providerName!=null">
-	 and providerName like concat('%',#{providerName},'%')
+<select id="getProviderTotalItems"  parameterType="provider" resultType="int">
+select count(*) from provider
+    <where>
+     <if test="providerName!= null">
+	  and providerName like concat('%',#{providerName},'%')
 	 </if>
 	 <if test="providerInfo!=null">
-	 and providerInfo like concat('%',#{providerInfo},'%')
+	  and providerInfo like concat('%',#{providerInfo},'%')
+	</if>
+	</where> 
+</select>
+<select id="getProviderList" resultType="provider">
+    select * from provider
+    <if test="provider!=null">
+    <where>
+     <if test="provider.providerName!=null">
+	 and providerName like concat('%',#{provider.providerName},'%')
+	 </if>
+	 <if test="provider.providerInfo!=null">
+	 and providerInfo like concat('%',#{provider.providerInfo},'%')
+	</if>
+	</where>
 	</if>
 	 ORDER BY providerId ASC
+	 <if test="page!=null">
+	 limit #{page.mySQLLimitStart},#{page.itemsPerPage}
+	 </if>
   </select>
   <select id="getProvider" parameterType="string" resultType="provider">
   select * from provider where providerId=#{id}
