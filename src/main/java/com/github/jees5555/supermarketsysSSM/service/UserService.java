@@ -3,12 +3,13 @@ package com.github.jees5555.supermarketsysSSM.service;
 import java.util.List;
 
 import com.github.jees5555.supermarketsysSSM.entity.User;
+import com.github.jees5555.supermarketsysSSM.util.Page;
 
 public interface UserService {
 	
 	 public User login(User user);
 		
-	 public List<User> getUserList(User user);
+	 public List<User> getUserList(User user,Page page);
 	 
 	 public User getUser(String id);
 	 

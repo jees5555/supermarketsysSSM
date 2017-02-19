@@ -40,14 +40,13 @@ public class PermissionInterceptor extends BaseIntercepter {
 			}
 			//进入用户的情况
 			if(model.equals("user")){
-				if(path.contains("toUserPasswordUpdate")||path.contains("userAfterOperateShow")){
+				if(path.contains("userAfterOperateShow")){
 					return flag =true;
 				}
-				if(path.contains("toUserUpdate")||path.contains("userAddOrUpdate")
+				if(path.contains("toUserUpdate")||path.contains("userAddOrUpdate")||path.contains("toUserPasswordUpdate")
 						||path.contains("checkUser")||path.contains("userPasswordUpdate")){
 					String userId =request.getParameter("userId");
 					Integer userIdSession = (Integer) request.getSession().getAttribute("userId");
-					System.out.println(userId+"  "+userIdSession);
 					if(userId.equals(userIdSession.toString())){
 						return flag =true;
 					}

@@ -6,17 +6,69 @@
 <head>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript">
-	
+var totalPage=${page.totalPage};
+var currPage=${page.currPage};
+function gofirst(){
+	if(currPage==1){
+		alert("已经在首页");
+	}else{
+		document.getElementById("page").value= 1;
+		document.getElementById("userform").submit();
+	}
+}
+function goforward(){
+	if(currPage==1){
+		alert("已经在首页");
+	}else{
+		document.getElementById("page").value= currPage-1;
+		document.getElementById("userform").submit();
+	}
+}
+function gonext(){
+	if(currPage>=totalPage){
+		alert("已达到末页");
+	}else{
+		document.getElementById("page").value= currPage+1;
+		document.getElementById("userform").submit();
+	}
+}
+function golast(){
+	if(currPage>=totalPage){
+		alert("已达到末页");
+	}else{
+		document.getElementById("page").value= totalPage;
+		document.getElementById("userform").submit();
+	}
+}
+
+function goany(){
+	var toPage =document.getElementById("page").value;
+	if(toPage<=0||toPage>totalPage){
+		alert("没有这一页");
+		document.getElementById("page").value=currPage;
+	}else{
+		document.getElementById("userform").submit();
+	}
+}
+
+function changeItemsPerPage() {
+	document.getElementById("userform").submit();
+}
+function search() {
+	document.getElementById("page").value= 1;
+	document.getElementById("userform").submit();
+}
 </script>
 </head>
 <body>
+    <form id="userform" method="post" action="userList">
 	<div class="menu">
 	<table><tbody>
-		<tr><td><form method="post" action="userList">
+		<tr><td>
 			用户名称：<input name="userName" class="input-text" type="text" value="${requestScope.userName==null?'':userName }">
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" name="submit" value="查询" class="button" />
-		</form></td></tr>
+			<input type="submit" value="查询" class="button" />
+		</td></tr>
 		</tbody></table>
 	</div>
 	<div class="main">
@@ -65,5 +117,23 @@
 			</table>
 		</div>
 	</div>
+	<div class ="menu">
+  <table><tbody><tr><td>
+	<input type="button" name="first" value="首页" class="button" onclick="gofirst()"/>
+	<input type="button" name="forward" value="上一页" class="button" onclick="goforward()"/>
+	<input type="button" name="next" value="下一页" class="button" onclick="gonext()"/>
+	<input type="button" name="last" value="末页" class="button" onclick="golast()"/>
+	&nbsp;当前第${page.currPage}页，共${page.totalPage}页&nbsp;
+	<input type ="text" id="page" name="currPage" value="${page.currPage}" class="input-text" style="width:30px"/>
+	<input type="button" name="any" value="跳转" class="button" onclick="goany()"/>
+	每页显示&nbsp;
+	<select id="itemsPerPage" name="itemsPerPage" class="input-text" onchange="changeItemsPerPage()">
+	<option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
+	<option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
+	<option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
+	</select>&nbsp;条
+	</td></tr></tbody></table>
+	</div>
+	</form>
 </body>
 </html>

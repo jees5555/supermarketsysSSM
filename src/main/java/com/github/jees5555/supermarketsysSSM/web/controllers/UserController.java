@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
+import com.github.jees5555.supermarketsysSSM.util.Page;
+
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @Controller
 @RequestMapping("user")
@@ -50,11 +52,12 @@ public class UserController {
 	}
 	
 	@RequestMapping("userList")
-	public ModelAndView userList(User user){
-		List<User> userList=userService.getUserList(user);
+	public ModelAndView userList(User user,Page page){
+		List<User> userList=userService.getUserList(user,page);
 		ModelAndView mav =new ModelAndView("user/userList");
 		mav.addObject("userList", userList);
 		mav.addObject("userName", user.getUserName());
+		mav.addObject("page",page);
 		return mav;
 	}
 	@RequestMapping("toUserAdd")

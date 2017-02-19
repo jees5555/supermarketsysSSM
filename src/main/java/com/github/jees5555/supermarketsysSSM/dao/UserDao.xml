@@ -4,13 +4,23 @@
 <select id="login" parameterType="user" resultType="user">
 select * from user where userName=#{userName} and userPassword=#{userPassword}
 </select>
-
-<select id="getUserList" parameterType="user" resultType="user">
-    select * from user where 1=1
+<select id="getUserTotalItems"  parameterType="user" resultType="int">
+select count(*) from user
+    <where>
      <if test="userName!=null">
-	 and userName like concat('%',#{userName},'%')
+	  and userName like concat('%',#{userName},'%')
+	 </if>
+	</where> 
+</select>
+<select id="getUserList" resultType="user">
+    select * from user where 1=1
+     <if test="user.userName!=null">
+	 and userName like concat('%',#{user.userName},'%')
 	 </if>
 	 ORDER BY userId ASC
+	 <if test="page!=null">
+	 limit #{page.mySQLLimitStart},#{page.itemsPerPage}
+	 </if>
   </select>
   <select id="getUser" parameterType="string" resultType="user">
   select * from user where userId=#{id}

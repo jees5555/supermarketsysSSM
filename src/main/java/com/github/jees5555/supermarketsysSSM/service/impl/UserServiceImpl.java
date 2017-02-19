@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.jees5555.supermarketsysSSM.dao.UserDao;
 import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
+import com.github.jees5555.supermarketsysSSM.util.Page;
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired
@@ -19,8 +20,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> getUserList(User user) {
-		return ud.getUserList(user);
+	public List<User> getUserList(User user,Page page) {
+		if(page!=null){
+			page.setTotalPage(ud.getUserTotalItems(user));
+		}
+		return ud.getUserList(user,page);
 	}
 
 	@Override
