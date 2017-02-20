@@ -20,7 +20,7 @@
 	<li><a href="user/userList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
 	</c:otherwise>
 	</c:choose>
-	<li><a href="user/logout" onclick="javaScript:alert('用户已退出')"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
+	<li><a href="user/logout"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
 </ul>
 </body>
 </html>

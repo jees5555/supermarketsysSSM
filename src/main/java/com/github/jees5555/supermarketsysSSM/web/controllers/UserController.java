@@ -48,7 +48,7 @@ public class UserController {
 		session.removeAttribute("userName");
 		session.removeAttribute("userRole");
 		String contextPath=request.getContextPath();
-		return "<script>window.open ('"+contextPath+"/','_top')</script>";  
+		return "<script>alert('用户已退出');window.open ('"+contextPath+"/','_top')</script>";  
 	}
 	
 	@RequestMapping("userList")

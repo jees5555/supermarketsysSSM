@@ -63,7 +63,7 @@ function search() {
 <body>
 <form id="providerform" method="post" action="providerList">
 	<div class="menu">
-		<table><tbody>
+		<table width="860px"><tbody>
 		<tr><td>供应商名称：<input name="providerName" 
 		                value="${providerName }" class="input-text" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;
 				供应商描述：<input name="providerInfo" value="${providerInfo }"
@@ -106,7 +106,7 @@ function search() {
 		</div>
 	</div>
    <div class ="menu">
-  <table><tbody><tr><td>
+  <table  width="860px"><tbody><tr><td>
 	<input type="button" name="first" value="首页" class="button" onclick="gofirst()"/>
 	<input type="button" name="forward" value="上一页" class="button" onclick="goforward()"/>
 	<input type="button" name="next" value="下一页" class="button" onclick="gonext()"/>
