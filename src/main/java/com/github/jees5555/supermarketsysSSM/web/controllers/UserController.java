@@ -3,9 +3,12 @@ package com.github.jees5555.supermarketsysSSM.web.controllers;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.CookieSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
+import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -26,29 +30,60 @@ import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 public class UserController {
 	@Resource
 	private UserService userService;
-
+	
+	@RequestMapping(method=RequestMethod.GET,value="/autologin")
+    public String autoLogin(HttpServletResponse response,HttpServletRequest request,HttpSession session){
+		Cookie userName=CookieUtil.getCookieByName(request, "userName");
+		Cookie userPassword=CookieUtil.getCookieByName(request, "userPassword");
+		User user =new User();
+		user.setUserName(userName.getValue());
+		user.setUserPassword(userPassword.getValue());
+    	user=userService.login(user);
+		if(user==null){
+			CookieUtil.removeCookieByName(response, "userName");
+			CookieUtil.removeCookieByName(response, "userPassword");
+			return "redirect:/";
+		}else{
+			session.setAttribute("userId", user.getUserId());
+			session.setAttribute("userName",user.getUserName());
+			session.setAttribute("userRole", user.getUserRole());
+			return "redirect:/main";
+		}
+    }
+	
 	@RequestMapping(method=RequestMethod.POST,value="/login")
-	public String login(User user,Model model,HttpSession session){
-		User u=userService.login(user);
-		if(u==null){
+	public String login(User user,boolean autologin,Model model,HttpSession session,
+			HttpServletResponse response){
+		user=userService.login(user);
+		if(user==null){
 			model.addAttribute("msg", "用户名或密码不正确");
 			return "login";
 		}
-		session.setAttribute("userId", u.getUserId());
-		session.setAttribute("userName",u.getUserName());
-		session.setAttribute("userRole", u.getUserRole());
+		if(autologin){
+			CookieUtil.addCookie(response, "userName", user.getUserName(), Integer.MAX_VALUE);
+			CookieUtil.addCookie(response, "userPassword", user.getUserPassword(), Integer.MAX_VALUE);
+		}
+		session.setAttribute("userId", user.getUserId());
+		session.setAttribute("userName",user.getUserName());
+		session.setAttribute("userRole", user.getUserRole());
 		return "redirect:/main";	
 	}
 	
 	@RequestMapping("logout")
 	@ResponseBody
-	public String logout(HttpServletRequest request){
+	public String logout(HttpServletResponse response,HttpServletRequest request){
 		HttpSession session=request.getSession();
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
 		session.removeAttribute("userRole");
+		CookieUtil.removeCookieByName(response, "userName");
+		CookieUtil.removeCookieByName(response, "userPassword");
 		String contextPath=request.getContextPath();
 		return "<script>alert('用户已退出');window.open ('"+contextPath+"/','_top')</script>";  
+	}
+	@RequestMapping("toUserSetting")
+	public String userSetting(){
+		return "user/userSetting";
 	}
 	
 	@RequestMapping("userList")

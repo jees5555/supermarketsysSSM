@@ -40,7 +40,7 @@ public class PermissionInterceptor extends BaseIntercepter {
 			}
 			//进入用户的情况
 			if(model.equals("user")){
-				if(path.contains("userAfterOperateShow")){
+				if(path.contains("userAfterOperateShow")||path.contains("toUserSetting")){
 					return flag =true;
 				}
 				if(path.contains("toUserUpdate")||path.contains("userAddOrUpdate")||path.contains("toUserPasswordUpdate")

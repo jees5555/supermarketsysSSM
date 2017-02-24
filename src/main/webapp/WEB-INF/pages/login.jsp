@@ -43,8 +43,10 @@ function check() {
 				<dd><input id="b" type="password" name="userPassword" class="input-text" onkeydown="keyLogin()"/></dd>
 			</dl>
 			<div class="buttons">
-				<input type="button" onclick="check();" name="login" value="登录系统" class="input-button" />
+			    <input type="checkbox" name="autologin" /><font style="font-weight: bold;" size="2px;" color="#3379b7" >记住用户名和密码</font>
+			    <input type="button" onclick="check();" name="login" value="登录系统" class="input-button" />
 				<input type="reset" name="reset" value="重　　填" class="input-button" />
+			  
 			</div>
 			<p align="right"><font style="font-weight: bold;" size="3px;" color="red" >${msg }</font></p>
 		</form>
