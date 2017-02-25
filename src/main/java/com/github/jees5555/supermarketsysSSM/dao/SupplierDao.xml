@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.jees5555.supermarketsysSSM.dao.SupplierDao">
+<select id="getSupplierTotalItems"  parameterType="supplier" resultType="int">
+select count(*) from supplier
+    <where>
+     <if test="supplierName!= null">
+	  and supplierName like concat('%',#{supplierName},'%')
+	 </if>
+	 <if test="supplierInfo!=null">
+	  and supplierInfo like concat('%',#{supplierInfo},'%')
+	</if>
+	</where> 
+</select>
+<select id="getSupplierList" resultType="supplier">
+    select * from supplier
+    <if test="supplier!=null">
+    <where>
+     <if test="supplier.supplierName!=null">
+	 and supplierName like concat('%',#{supplier.supplierName},'%')
+	 </if>
+	 <if test="supplier.supplierInfo!=null">
+	 and supplierInfo like concat('%',#{supplier.supplierInfo},'%')
+	</if>
+	</where>
+	</if>
+	 ORDER BY supplierId ASC
+	 <if test="page!=null">
+	 limit #{page.mySQLLimitStart},#{page.itemsPerPage}
+	 </if>
+  </select>
+  <select id="getSupplier" parameterType="string" resultType="supplier">
+  select * from supplier where supplierId=#{id}
+  </select>
+  <select id="isSupplierExistById" parameterType="string" resultType="int">
+  select count(*) from supplier where supplierId=#{id}
+   </select>
+   <insert id="addSupplier" parameterType="supplier">
+	insert into supplier (supplierName,supplierInfo,supplierAtten,
+	supplierTel,supplierFax,supplierAddress) 
+	values(#{supplierName},#{supplierInfo},#{supplierAtten},
+	#{supplierTel},#{supplierFax},#{supplierAddress})
+	</insert>
+	<update id="updateSupplier" parameterType="supplier">
+	update supplier set supplierName=#{supplierName},supplierInfo=#{supplierInfo},supplierAtten=#{supplierAtten},
+	supplierTel=#{supplierTel},supplierFax=#{supplierFax},supplierAddress=#{supplierAddress} where supplierId=#{supplierId}
+	</update>
+	 <delete id="deleteSupplier" parameterType="string">
+	 delete from supplier where supplierId =#{id}
+	 </delete>
+</mapper>

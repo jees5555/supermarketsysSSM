@@ -20,7 +20,7 @@ var billMoney;
 var productName;
 var productNum;
 var productInfo;
-var providerId;
+var supplierId;
 var payStatus;
 function check() {
 	var pass=true;
@@ -29,7 +29,7 @@ function check() {
 	productName=document.getElementById("productName").value;
 	productNum=document.getElementById("productNum").value;
 	productInfo= document.getElementById("productInfo").value;
-	providerId=document.getElementById("providerId").value;
+	supplierId=document.getElementById("supplierId").value;
 	payStatus=document.getElementById("payStatus").value;
 	if(billMoney==""){
 		document.getElementById("billMoneyMsg").innerHTML="请输入交易金额";
@@ -49,18 +49,18 @@ function check() {
 	}else{
 		document.getElementById("productNumMsg").innerHTML="";
 	}
-	if(providerId==""){
-		document.getElementById("providerIdMsg").innerHTML="请选择供应商";
+	if(supplierId==""){
+		document.getElementById("supplierIdMsg").innerHTML="请选择供应商";
 		pass=false;
 	}else{
-		document.getElementById("providerIdMsg").innerHTML="";
+		document.getElementById("supplierIdMsg").innerHTML="";
 	}
 	if(pass){
 		xmlhttp.open("POST", "billAddOrUpdate", true);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		if(billId==""){
 			xmlhttp.send("billMoney="+billMoney+"&productName="+productName+"&productNum="+productNum
-					+"&productInfo="+productInfo+"&providerId="+providerId+"&payStatus="+payStatus);
+					+"&productInfo="+productInfo+"&supplierId="+supplierId+"&payStatus="+payStatus);
 			xmlhttp.onreadystatechange=function(){
 				  if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					    var text=xmlhttp.responseText;
@@ -74,7 +74,7 @@ function check() {
 			}
 		}else{
 			xmlhttp.send("billId="+billId+"&billMoney="+billMoney+"&productName="+productName+"&productNum="+productNum
-					+"&productInfo="+productInfo+"&providerId="+providerId+"&payStatus="+payStatus);
+					+"&productInfo="+productInfo+"&supplierId="+supplierId+"&payStatus="+payStatus);
 			xmlhttp.onreadystatechange=function(){
 			   if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				    var text=xmlhttp.responseText;
@@ -148,16 +148,16 @@ function del(id) {
 					</tr>
 					<tr>
 						<td class="field">所属供应商：</td>
-						<td><select name="providerId" id="providerId">
+						<td><select name="supplierId" id="supplierId">
 								<option value="">请选择</option>
-								<c:forEach items="${providerList }" var="provider"
+								<c:forEach items="${supplierList }" var="supplier"
 									varStatus="vs">
-									<option value="${provider.providerId }"
-										${provider.providerId==bill.providerId?"selected":"" }>${provider.providerName }</option>
+									<option value="${supplier.supplierId }"
+										${supplier.supplierId==bill.supplierId?"selected":"" }>${supplier.supplierName }</option>
 								</c:forEach>
 						</select>
 						<font color="red">*</font>
-						<font id="providerIdMsg" color="red"></font></td>
+						<font id="supplierIdMsg" color="red"></font></td>
 					</tr>
 					<tr>
 						<td class="field">是否付款：</td>

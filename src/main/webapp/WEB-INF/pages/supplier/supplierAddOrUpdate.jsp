@@ -14,35 +14,35 @@ if (window.XMLHttpRequest){
 }else{
   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 }
-var providerId;
-var providerName;
-var providerInfo;
-var providerAtten;
-var providerTel;
-var providerFax;
-var providerAddress;
+var supplierId;
+var supplierName;
+var supplierInfo;
+var supplierAtten;
+var supplierTel;
+var supplierFax;
+var supplierAddress;
 
 function check() {
 	var pass=true;
-	providerId=document.getElementById("providerId").value;
-	providerName=document.getElementById("providerName").value;
-	providerInfo=document.getElementById("providerInfo").value;
-	providerAtten=document.getElementById("providerAtten").value;
-	providerTel=document.getElementById("providerTel").value;
-	providerFax=document.getElementById("providerFax").value;
-	providerAddress=document.getElementById("providerAddress").value;
-	if(providerName==""){
-		document.getElementById("providerNameMsg").innerHTML="请输入供应商名称";
+	supplierId=document.getElementById("supplierId").value;
+	supplierName=document.getElementById("supplierName").value;
+	supplierInfo=document.getElementById("supplierInfo").value;
+	supplierAtten=document.getElementById("supplierAtten").value;
+	supplierTel=document.getElementById("supplierTel").value;
+	supplierFax=document.getElementById("supplierFax").value;
+	supplierAddress=document.getElementById("supplierAddress").value;
+	if(supplierName==""){
+		document.getElementById("supplierNameMsg").innerHTML="请输入供应商名称";
 		pass=false;
 	}else{
-		document.getElementById("providerNameMsg").innerHTML="";
+		document.getElementById("supplierNameMsg").innerHTML="";
 	}
 	if(pass){
-		xmlhttp.open("POST", "providerAddOrUpdate", true);
+		xmlhttp.open("POST", "supplierAddOrUpdate", true);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		if(providerId==""){
-			xmlhttp.send("providerName="+providerName+"&providerInfo="+providerInfo+"&providerAtten="+providerAtten
-					+"&providerTel="+providerTel+"&providerFax="+providerFax+"&providerAddress="+providerAddress);
+		if(supplierId==""){
+			xmlhttp.send("supplierName="+supplierName+"&supplierInfo="+supplierInfo+"&supplierAtten="+supplierAtten
+					+"&supplierTel="+supplierTel+"&supplierFax="+supplierFax+"&supplierAddress="+supplierAddress);
 			xmlhttp.onreadystatechange=function(){
 				  if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					    var text=xmlhttp.responseText;
@@ -51,12 +51,12 @@ function check() {
 					    }else{
 					    	alert("添加失败");
 					    }
-					    location.href="providerList";
+					    location.href="supplierList";
 					  }
 			}
 		}else{
-			xmlhttp.send("providerId="+providerId+"&providerName="+providerName+"&providerInfo="+providerInfo+"&providerAtten="+providerAtten
-					+"&providerTel="+providerTel+"&providerFax="+providerFax+"&providerAddress="+providerAddress);
+			xmlhttp.send("supplierId="+supplierId+"&supplierName="+supplierName+"&supplierInfo="+supplierInfo+"&supplierAtten="+supplierAtten
+					+"&supplierTel="+supplierTel+"&supplierFax="+supplierFax+"&supplierAddress="+supplierAddress);
 			xmlhttp.onreadystatechange=function(){
 			   if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				    var text=xmlhttp.responseText;
@@ -65,7 +65,7 @@ function check() {
 				    }else{
 				    	alert("修改失败");
 				    }
-				    location.href="providerList";
+				    location.href="supplierList";
 				  }
 			 }
 		}
@@ -76,7 +76,7 @@ function check() {
 function del(id) {
 	var con=confirm("确认删除id为"+id+"的供应商吗？");
 	if(con){
-		xmlhttp.open("GET","providerDelete?providerId="+id,true);
+		xmlhttp.open("GET","supplierDelete?supplierId="+id,true);
 		xmlhttp.send();
 		xmlhttp.onreadystatechange=function(){
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200){
@@ -86,7 +86,7 @@ function del(id) {
 		    }else{
 		    	alert("删除失败");
 		    }
-		    location.href="providerList";
+		    location.href="supplierList";
 		  }
 		 }
 	}
@@ -99,53 +99,53 @@ function del(id) {
 		<div class="title">供应商管理&gt;&gt;</div>
 	</div>
 	
-	<form id="providerform" method="post" action="providerAddOrUpdate">
-		<input id="providerId" name="providerId" value="${provider.providerId }" type="hidden" />
+	<form id="supplierform" method="post" action="supplierAddOrUpdate">
+		<input id="supplierId" name="supplierId" value="${supplier.supplierId }" type="hidden" />
 		<div class="content">
 		<font color="red"></font>
 			<table class="box" >
 			<tbody>
 				<tr>
 					<td class="field">供应商名称：</td>
-					<td><input name="providerName" id="providerName" class="text" type="text" value="${provider.providerName }"/> 
+					<td><input name="supplierName" id="supplierName" class="text" type="text" value="${supplier.supplierName }"/> 
 					<font color="red">*</font>
-					<font id="providerNameMsg" color="red"></font></td>
+					<font id="supplierNameMsg" color="red"></font></td>
 				</tr>
 			 <tr>
 					<td class="field">供应商描述：</td>
-					<td><textarea name="providerInfo" id="providerInfo" cols="45" rows="5">${provider.providerInfo }</textarea></td>
+					<td><textarea name="supplierInfo" id="supplierInfo" cols="45" rows="5">${supplier.supplierInfo }</textarea></td>
 				</tr>
 				<tr>
 					<td class="field">供应商联系人：</td>
-					<td><input name="providerAtten" id="providerAtten" class="text" type="text" 
-					value="${provider.providerAtten }"/></td>
+					<td><input name="supplierAtten" id="supplierAtten" class="text" type="text" 
+					value="${supplier.supplierAtten }"/></td>
 				</tr>
 				<tr>
 					<td class="field">供应商电话：</td>
-					<td><input name="providerTel" id="providerTel" class="text" type="text" 
-					value="${provider.providerTel }"/></td>
+					<td><input name="supplierTel" id="supplierTel" class="text" type="text" 
+					value="${supplier.supplierTel }"/></td>
 				</tr>
 				<tr>
 					<td class="field">供应商传真：</td>
 
-					<td><input name="providerFax" id="providerFax" class="text" type="text" 
-					value="${provider.providerFax }"/></td>
+					<td><input name="supplierFax" id="supplierFax" class="text" type="text" 
+					value="${supplier.supplierFax }"/></td>
 				</tr>
 				<tr>
 					<td class="field">供应商地址：</td>
-					<td><input name="providerAddress" id="providerAddress" class="text" type="text" value="${provider.providerAddress }"/></td>
+					<td><input name="supplierAddress" id="supplierAddress" class="text" type="text" value="${supplier.supplierAddress }"/></td>
 				</tr>
 			</tbody></table>
 		</div>
 
 		<div class="buttons">
 		     <c:choose>
-		     <c:when test="${provider.providerId==null }">
+		     <c:when test="${supplier.supplierId==null }">
 		     <input name="button"  value="提交" class="input-button" type="button" onclick="check();"/> 
 		     </c:when>
 			<c:otherwise>
 			 <input name="button"  value="修改" class="input-button" type="button" onclick="check();"/> 
-			<input type="button" onclick="del(${provider.providerId});" value="删除" class="input-button" />
+			<input type="button" onclick="del(${supplier.supplierId});" value="删除" class="input-button" />
 			</c:otherwise>
 			</c:choose>
 			<input name="button"  onclick="history.back();" value="返回" class="input-button" type="button" /> 

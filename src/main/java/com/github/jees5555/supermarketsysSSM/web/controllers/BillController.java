@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.jees5555.supermarketsysSSM.entity.Bill;
-import com.github.jees5555.supermarketsysSSM.entity.Provider;
+import com.github.jees5555.supermarketsysSSM.entity.Supplier;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.BillService;
-import com.github.jees5555.supermarketsysSSM.service.ProviderService;
+import com.github.jees5555.supermarketsysSSM.service.SupplierService;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -24,13 +24,13 @@ import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @RequestMapping("bill")
 public class BillController {
 	@Resource
-    private BillService billService;
+    private BillService bs;
 	@Resource
-	private ProviderService providerService;
+	private SupplierService ss;
 	
 	@RequestMapping("billList")
 	public ModelAndView userList(Bill bill,Page page){
-		List<Bill> billList=billService.getBillList(bill,page);
+		List<Bill> billList=bs.getBillList(bill,page);
 		ModelAndView mav =new ModelAndView("bill/billList");
 		mav.addObject("billList", billList);
 		mav.addObject("productName", bill.getProductName());
@@ -42,17 +42,17 @@ public class BillController {
 	@RequestMapping("toBillAdd")
 	public String toBillAdd (Model model){
 		model.addAttribute("bill", new Bill());
-		List<Provider> providerList =providerService.getProviderList(null,null);
-		model.addAttribute("providerList", providerList);
+		List<Supplier> supplierList =ss.getSupplierList(null,null);
+		model.addAttribute("supplierList", supplierList);
 		return "bill/billAddOrUpdate";
 	}
 	
 	@RequestMapping("toBillUpdate")
 	public String toBillUpdate (String billId,Model model){
-		Bill bill=billService.getBill(billId);
+		Bill bill=bs.getBill(billId);
 		model.addAttribute("bill", bill);
-		List<Provider> providerList =providerService.getProviderList(null,null);
-		model.addAttribute("providerList", providerList);
+		List<Supplier> supplierList =ss.getSupplierList(null,null);
+		model.addAttribute("supplierList", supplierList);
 		return "bill/billAddOrUpdate";
 	}
 	
@@ -63,9 +63,9 @@ public class BillController {
 			throw new MyException("参数错误");
 			}
 		if(bill.getBillId()==null){
-			billService.addBill(bill);
+			bs.addBill(bill);
 		}else{
-			billService.updateBill(bill);
+			bs.updateBill(bill);
 		}
 		return SUCCESS.getName();
 	}
@@ -73,7 +73,7 @@ public class BillController {
 	@RequestMapping("billDelete")
 	@ResponseBody
 	public String billDelete(String billId){
-		billService.deleteBill(billId);
+		bs.deleteBill(billId);
 		return SUCCESS.getName();
 	}
 }

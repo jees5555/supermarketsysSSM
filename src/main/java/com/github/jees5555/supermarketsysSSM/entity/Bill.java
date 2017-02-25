@@ -19,8 +19,8 @@ private Integer productNum;
 @DecimalMin("0")
 private Integer billMoney;
 private Integer payStatus;
-private Integer providerId;
-private String providerName;
+private Integer supplierId;
+private String supplierName;
 private String productInfo;
 private Date billTime;
 public Integer getBillId() {
@@ -53,17 +53,17 @@ public Integer getPayStatus() {
 public void setPayStatus(Integer payStatus) {
 	this.payStatus = payStatus;
 }
-public Integer getProviderId() {
-	return providerId;
+public Integer getSupplierId() {
+	return supplierId;
 }
-public void setProviderId(Integer providerId) {
-	this.providerId = providerId;
+public void setSupplierId(Integer supplierId) {
+	this.supplierId = supplierId;
 }
-public String getProviderName() {
-	return providerName;
+public String getSupplierName() {
+	return supplierName;
 }
-public void setProviderName(String providerName) {
-	this.providerName = providerName;
+public void setSupplierName(String supplierName) {
+	this.supplierName = supplierName;
 }
 public String getProductInfo() {
 	return productInfo;

@@ -29,7 +29,7 @@ import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 @RequestMapping("user")
 public class UserController {
 	@Resource
-	private UserService userService;
+	private UserService us;
 	
 	@RequestMapping(method=RequestMethod.GET,value="/autologin")
     public String autoLogin(HttpServletResponse response,HttpServletRequest request,HttpSession session){
@@ -38,7 +38,7 @@ public class UserController {
 		User user =new User();
 		user.setUserName(userName.getValue());
 		user.setUserPassword(userPassword.getValue());
-    	user=userService.login(user);
+    	user=us.login(user);
 		if(user==null){
 			CookieUtil.removeCookieByName(response, "userName");
 			CookieUtil.removeCookieByName(response, "userPassword");
@@ -54,7 +54,7 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.POST,value="/login")
 	public String login(User user,boolean autologin,Model model,HttpSession session,
 			HttpServletResponse response){
-		user=userService.login(user);
+		user=us.login(user);
 		if(user==null){
 			model.addAttribute("msg", "用户名或密码不正确");
 			return "login";
@@ -88,7 +88,7 @@ public class UserController {
 	
 	@RequestMapping("userList")
 	public ModelAndView userList(User user,Page page){
-		List<User> userList=userService.getUserList(user,page);
+		List<User> userList=us.getUserList(user,page);
 		ModelAndView mav =new ModelAndView("user/userList");
 		mav.addObject("userList", userList);
 		mav.addObject("userName", user.getUserName());
@@ -102,7 +102,7 @@ public class UserController {
 	
 	@RequestMapping("toUserUpdate")
 	public String toUserUpdate(String userId,Model model){
-		User user=userService.getUser(userId);
+		User user=us.getUser(userId);
 		model.addAttribute("user", user);
 		return "user/userAddOrUpdate";
 	}
@@ -110,7 +110,7 @@ public class UserController {
 	@RequestMapping("checkUser")
 	@ResponseBody
 	public String checkUser(User user){
-		boolean isExist=userService.isUserExist(user);
+		boolean isExist=us.isUserExist(user);
 		if(isExist){
 			return FAILURE.getName();
 		}else{
@@ -124,9 +124,9 @@ public class UserController {
 			throw new MyException("参数错误");
 			}
 		if(user.getUserId()==null){
-			userService.addUser(user);
+			us.addUser(user);
 		}else{
-			userService.updateUser(user);
+			us.updateUser(user);
 		}
 		return SUCCESS.getName();
 	}
@@ -138,7 +138,7 @@ public class UserController {
 	@RequestMapping("checkUserPassword")
 	@ResponseBody
 	public String checkUserPassword(User user){
-		boolean isCorrect=userService.isUserPasswordCorrect(user);
+		boolean isCorrect=us.isUserPasswordCorrect(user);
 		if(isCorrect){
 			return SUCCESS.getName();
 		}else{
@@ -149,7 +149,7 @@ public class UserController {
 	@RequestMapping("userPasswordUpdate")
 	@ResponseBody
 	public String userPasswordUpdate(User user,HttpSession session){
-		int count=userService.updateUserPassword(user);
+		int count=us.updateUserPassword(user);
 		if(count==1){
 			return SUCCESS.getName();
 		}else{
@@ -167,7 +167,7 @@ public class UserController {
 	@RequestMapping("userDelete")
 	@ResponseBody
 	public String userDelete(String userId){
-		userService.deleteUser(userId);
+		us.deleteUser(userId);
 		return SUCCESS.getName();
 	}
 }

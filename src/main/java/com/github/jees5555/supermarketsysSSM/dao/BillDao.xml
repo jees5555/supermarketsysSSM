@@ -13,9 +13,9 @@ select count(*) from bill
 	</where> 
 </select>
 <select id="getBillList" resultType="bill">
-    select bill.*,provider.providerName from bill,provider 
+    select bill.*,supplier.supplierName from bill,supplier 
     <where>
-    bill.providerId=provider.providerId 
+    bill.supplierId=supplier.supplierId 
      <if test="bill!=null">
      <if test="bill.productName!=null">
 	 and productName like concat('%',#{bill.productName},'%') 
@@ -39,13 +39,13 @@ select count(*) from bill
    </select>
    <insert id="addBill" parameterType="bill">
 	insert into bill (billId,productName,productNum,billMoney,
-	payStatus,providerId,productInfo,billTime) 
+	payStatus,supplierId,productInfo,billTime) 
 	values(#{billId},#{productName},#{productNum},#{billMoney},
-	#{payStatus},#{providerId},#{productInfo},now())
+	#{payStatus},#{supplierId},#{productInfo},now())
 	</insert>
 	<update id="updateBill" parameterType="bill">
 	update bill set productName=#{productName},productNum=#{productNum},billMoney=#{billMoney},
-	payStatus=#{payStatus},providerId=#{providerId},productInfo=#{productInfo} where billId=#{billId}
+	payStatus=#{payStatus},supplierId=#{supplierId},productInfo=#{productInfo} where billId=#{billId}
 	</update>
 	 <delete id="deleteBill" parameterType="string">
 	 delete from bill where billId =#{id}

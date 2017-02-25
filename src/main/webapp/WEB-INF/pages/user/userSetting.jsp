@@ -17,10 +17,10 @@
 	<form id="userform" method="post" action="userAddOrUpdate">
 		<div class="content">
 			<table class="box">
-			<tr><td>&nbsp;&nbsp;<input type="checkbox" name="billship"/>&nbsp;&nbsp;添加帐单列表完成后直接添加下一个</td></tr>
+			<tr><td>&nbsp;&nbsp;<input type="checkbox" name="billSkip"/>&nbsp;&nbsp;添加帐单列表完成后直接添加下一个</td></tr>
             <c:if test="${sessionScope.userRole!=0}">
-			<tr><td>&nbsp;&nbsp;<input type="checkbox" name="providership"/>&nbsp;&nbsp;添加供应商列表完成后直接添加下一个</td></tr>
-			<tr><td>&nbsp;&nbsp;<input type="checkbox" name="usership"/>&nbsp;&nbsp;添加用户列表完成后直接添加下一个</td></tr>
+			<tr><td>&nbsp;&nbsp;<input type="checkbox" name="supplierSkip"/>&nbsp;&nbsp;添加供应商列表完成后直接添加下一个</td></tr>
+			<tr><td>&nbsp;&nbsp;<input type="checkbox" name="userSkip"/>&nbsp;&nbsp;添加用户列表完成后直接添加下一个</td></tr>
 			</c:if>	
 			</table>
 		</div>

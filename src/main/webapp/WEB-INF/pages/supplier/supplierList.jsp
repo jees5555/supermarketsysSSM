@@ -13,7 +13,7 @@ function gofirst(){
 		alert("已经在首页");
 	}else{
 		document.getElementById("page").value= 1;
-		document.getElementById("providerform").submit();
+		document.getElementById("supplierform").submit();
 	}
 }
 function goforward(){
@@ -21,7 +21,7 @@ function goforward(){
 		alert("已经在首页");
 	}else{
 		document.getElementById("page").value= currPage-1;
-		document.getElementById("providerform").submit();
+		document.getElementById("supplierform").submit();
 	}
 }
 function gonext(){
@@ -29,7 +29,7 @@ function gonext(){
 		alert("已达到末页");
 	}else{
 		document.getElementById("page").value= currPage+1;
-		document.getElementById("providerform").submit();
+		document.getElementById("supplierform").submit();
 	}
 }
 function golast(){
@@ -37,7 +37,7 @@ function golast(){
 		alert("已达到末页");
 	}else{
 		document.getElementById("page").value= totalPage;
-		document.getElementById("providerform").submit();
+		document.getElementById("supplierform").submit();
 	}
 }
 
@@ -47,26 +47,26 @@ function goany(){
 		alert("没有这一页");
 		document.getElementById("page").value=currPage;
 	}else{
-		document.getElementById("providerform").submit();
+		document.getElementById("supplierform").submit();
 	}
 }
 
 function changeItemsPerPage() {
-	document.getElementById("providerform").submit();
+	document.getElementById("supplierform").submit();
 }
 function search() {
 	document.getElementById("page").value= 1;
-	document.getElementById("providerform").submit();
+	document.getElementById("supplierform").submit();
 }
 </script>
 </head>
 <body>
-<form id="providerform" method="post" action="providerList">
+<form id="supplierform" method="post" action="supplierList">
 	<div class="menu">
 		<table width="860px"><tbody>
-		<tr><td>供应商名称：<input name="providerName" 
-		                value="${providerName }" class="input-text" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;
-				供应商描述：<input name="providerInfo" value="${providerInfo }"
+		<tr><td>供应商名称：<input name="supplierName" 
+		                value="${supplierName }" class="input-text" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;
+				供应商描述：<input name="supplierInfo" value="${supplierInfo }"
 						class="input-text" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" value="组合查询" class="button" onclick="search()"/>
 						</td></tr>
@@ -75,7 +75,7 @@ function search() {
 	<div class="main">
 		<div class="optitle clearfix">
 			<em><input value="添加数据" class="input-button"
-				onclick="window.location='toProviderAdd'" type="button" /></em>
+				onclick="window.location='toSupplierAdd'" type="button" /></em>
 			<div class="title">供应商管理&gt;&gt;</div>
 		</div>
 
@@ -90,15 +90,15 @@ function search() {
 						<td width="100"><div class="STYLE1" align="center">电话</div></td>
 						<td width="100"><div class="STYLE1" align="center">地址</div></td>
 					</tr>
-					<c:forEach items="${providerList }" var="provider" varStatus="vs">
+					<c:forEach items="${supplierList }" var="supplier" varStatus="vs">
 					<tr>
-						<td height="23"><span class="STYLE1">${provider.providerId }</span></td>
+						<td height="23"><span class="STYLE1">${supplier.supplierId }</span></td>
 						<td><span class="STYLE1"><a
-							href="toProviderUpdate?providerId=${provider.providerId }">${provider.providerName }</a></span></td>
-						<td><span class="STYLE1">${provider.providerInfo }</span></td>
-						<td><span class="STYLE1">${provider.providerAtten }</span></td>
-						<td><span class="STYLE1">${provider.providerTel==0?"": provider.providerTel }</span></td>
-						<td><span class="STYLE1">${provider.providerAddress }</span></td>
+							href="toSupplierUpdate?supplierId=${supplier.supplierId }">${supplier.supplierName }</a></span></td>
+						<td><span class="STYLE1">${supplier.supplierInfo }</span></td>
+						<td><span class="STYLE1">${supplier.supplierAtten }</span></td>
+						<td><span class="STYLE1">${supplier.supplierTel==0?"": supplier.supplierTel }</span></td>
+						<td><span class="STYLE1">${supplier.supplierAddress }</span></td>
 					</tr>
 					</c:forEach>
 				</tbody>

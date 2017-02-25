@@ -16,7 +16,7 @@
     <li><a href="user/toUserUpdate?userId=${sessionScope.userId }" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
     </c:when>
     <c:otherwise>
-	<li><a href="provider/providerList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_suppliers.gif" /></a></li>
+	<li><a href="supplier/supplierList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_suppliers.gif" /></a></li>
 	<li><a href="user/userList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
 	</c:otherwise>
 	</c:choose>
