@@ -20,7 +20,7 @@
 	<li><a href="user/userList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
 	</c:otherwise>
 	</c:choose>
-	<li><a href="user/toUserSetting"  target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_setting.gif" /></a></li>
+	<li><a href="system/toSystemSetting"  target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_setting.gif" /></a></li>
 	<li><a href="user/logout"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
 </ul>
 </body>

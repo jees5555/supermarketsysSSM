@@ -81,10 +81,7 @@ public class UserController {
 		String contextPath=request.getContextPath();
 		return "<script>alert('用户已退出');window.open ('"+contextPath+"/','_top')</script>";  
 	}
-	@RequestMapping("toUserSetting")
-	public String userSetting(){
-		return "user/userSetting";
-	}
+	
 	
 	@RequestMapping("userList")
 	public ModelAndView userList(User user,Page page){

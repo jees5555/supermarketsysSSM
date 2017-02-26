@@ -34,8 +34,8 @@ public class PermissionInterceptor extends BaseIntercepter {
 			return flag =true;
 		//普通用户	
 		}else{
-			//允许修改账单
-			if(model.equals("bill")){
+			//允许修改账单和系统设置
+			if(model.equals("bill")||model.contains("system")){
 				return flag =true;
 			}
 			//进入用户的情况

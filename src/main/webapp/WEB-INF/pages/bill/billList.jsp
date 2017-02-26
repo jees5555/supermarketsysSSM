@@ -104,7 +104,7 @@ function search() {
 				<td><span class="STYLE1">${bill.productNum }</span></td>
 				<td><span class="STYLE1">${bill.billMoney }</span></td>
 				<td><span class="STYLE1">${bill.payStatus==0?"未付款":"已付款" }</span></td>
-				<td><span class="STYLE1">${bill.providerName }</span></td>
+				<td><span class="STYLE1">${bill.supplierName }</span></td>
 				<td><span class="STYLE1">${bill.productInfo }</span></td>
 				<td><span class="STYLE1">${bill.formatBillTime }</span></td>
 			</tr>

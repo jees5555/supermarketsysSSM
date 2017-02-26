@@ -4,7 +4,6 @@ public class Page {
 private Integer itemsPerPage =5;
 private Integer currPage =1;
 private Integer totalPage;
-private Integer mySQLLimitStart =itemsPerPage*(currPage-1);
 public Integer getItemsPerPage() {
 	return this.itemsPerPage;
 }
@@ -16,7 +15,6 @@ public Integer getCurrPage() {
 }
 public void setCurrPage(Integer currPage) {
 	this.currPage = currPage;
-	this.mySQLLimitStart=itemsPerPage*(currPage-1);
 }
 public Integer getTotalPage() {
 	if (totalPage ==null){
@@ -32,8 +30,9 @@ public void setTotalPage(Integer totalItems) {
 	}
 	
 }
+//mysql分页使用
 public Integer getMySQLLimitStart() {
-	return mySQLLimitStart;
+	return itemsPerPage*(currPage-1);
 }
 
 }
