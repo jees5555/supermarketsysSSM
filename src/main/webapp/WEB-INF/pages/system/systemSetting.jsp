@@ -18,31 +18,31 @@
 		<div class="content">
 			<table class="box">
 			<tr><td>&nbsp;&nbsp;添加帐单列表完成后直接添加下一个</td>
-			<td><input type="checkbox" name="billSkip"/></td></tr>
+			<td><input type="checkbox" name="billSkip" ${billSkip =="true"?"checked='checked'":"" }/></td></tr>
 			<tr><td>&nbsp;&nbsp;帐单列表每页显示条数&nbsp;</td>
 	              <td><select id="billItemsPerPage" name="billItemsPerPage" class="input-text" onchange="changeItemsPerPage()">
-	              <option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
-	              <option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
-	              <option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
+	              <option value="5" ${billItemsPerPage==5?'selected':''}>5</option>
+	              <option value="10" ${billItemsPerPage==10?'selected':''}>10</option>
+	              <option value="20" ${billItemsPerPage==20?'selected':''}>20</option>
 	              </select>
 	        </td></tr>
             <c:if test="${sessionScope.userRole!=0}">
 			<tr><td>&nbsp;&nbsp;添加供应商列表完成后直接添加下一个</td>
-			<td><input type="checkbox" name="supplierSkip"/></td></tr>
+			<td><input type="checkbox" name="supplierSkip" ${supplierSkip =="true"?"checked='checked'":"" }/></td></tr>
 			<tr><td>&nbsp;&nbsp;供应商列表每页显示条数&nbsp;</td>
 	              <td><select id="supplierItemsPerPage" name="supplierItemsPerPage" class="input-text">
-	              <option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
-	              <option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
-	              <option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
+	              <option value="5" ${supplierItemsPerPage==5?'selected':''}>5</option>
+	              <option value="10" ${supplierItemsPerPage==10?'selected':''}>10</option>
+	              <option value="20" ${supplierItemsPerPagee==20?'selected':''}>20</option>
 	              </select>
 	        </td></tr>
 			<tr><td>&nbsp;&nbsp;添加用户列表完成后直接添加下一个</td>
-			<td><input type="checkbox" name="userSkip"/>&nbsp;&nbsp;</td></tr>
+			<td><input type="checkbox" name="userSkip"  ${userSkip =="true"?"checked='checked'":"" }/>&nbsp;&nbsp;</td></tr>
 			<tr><td>&nbsp;&nbsp;用户列表每页显示条数&nbsp;</td>
 	              <td><select id="userItemsPerPage" name="userItemsPerPage" class="input-text">
-	              <option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
-	              <option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
-	              <option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
+	              <option value="5" ${userItemsPerPage==5?'selected':''}>5</option>
+	              <option value="10" ${userItemsPerPage==10?'selected':''}>10</option>
+	              <option value="20" ${userItemsPerPage==20?'selected':''}>20</option>
 	              </select>
 	        </td></tr>
 			</c:if>	
