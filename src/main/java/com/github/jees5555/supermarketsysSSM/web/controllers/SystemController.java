@@ -25,7 +25,6 @@ public class SystemController {
 		Cookie billItemsPerPage=CookieUtil.getCookieByName(request,"billItemsPerPage");
 		Cookie supplierItemsPerPage=CookieUtil.getCookieByName(request,"supplierItemsPerPage");
 		Cookie userItemsPerPage=CookieUtil.getCookieByName(request,"userItemsPerPage");
-		System.out.println(billSkip.getValue());
 		if(billSkip!=null){
 		model.addAttribute("billSkip",billSkip.getValue());
 		}

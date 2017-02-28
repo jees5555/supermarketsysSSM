@@ -3,6 +3,8 @@ package com.github.jees5555.supermarketsysSSM.web.controllers;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import com.github.jees5555.supermarketsysSSM.entity.Supplier;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.BillService;
 import com.github.jees5555.supermarketsysSSM.service.SupplierService;
+import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -29,7 +32,11 @@ public class BillController {
 	private SupplierService ss;
 	
 	@RequestMapping("billList")
-	public ModelAndView userList(Bill bill,Page page){
+	public ModelAndView billList(Bill bill,Page page,HttpServletRequest request){
+		Cookie billItemsPerPage=CookieUtil.getCookieByName(request, "billItemsPerPage");
+		if(billItemsPerPage!=null&& !page.isItemsPerPageSetted()){
+		     page.setItemsPerPage(Integer.parseInt(billItemsPerPage.getValue()));
+		}
 		List<Bill> billList=bs.getBillList(bill,page);
 		ModelAndView mav =new ModelAndView("bill/billList");
 		mav.addObject("billList", billList);

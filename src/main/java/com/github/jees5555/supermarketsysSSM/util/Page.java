@@ -1,14 +1,27 @@
 package com.github.jees5555.supermarketsysSSM.util;
 
 public class Page {
-private Integer itemsPerPage =5;
+public final static Integer defaultItemsPerPage =5;
+
+private Integer itemsPerPage;
 private Integer currPage =1;
 private Integer totalPage;
 public Integer getItemsPerPage() {
+	if(this.itemsPerPage==null){
+		return defaultItemsPerPage;
+	}else{
 	return this.itemsPerPage;
+	}
 }
 public void setItemsPerPage(Integer itemsPerPage) {
 	this.itemsPerPage = itemsPerPage;
+}
+public boolean isItemsPerPageSetted (){
+	if(this.itemsPerPage==null){
+		return false;
+	}else{
+		return true;
+	}
 }
 public Integer getCurrPage() {
 	return this.currPage;

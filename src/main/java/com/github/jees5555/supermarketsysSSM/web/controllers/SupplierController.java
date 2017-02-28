@@ -3,6 +3,8 @@ package com.github.jees5555.supermarketsysSSM.web.controllers;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.Supplier;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.SupplierService;
+import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -27,7 +30,11 @@ public class SupplierController {
 	private SupplierService ss;
 	
 	@RequestMapping("supplierList")
-	public ModelAndView supplierList(Supplier supplier,Page page){
+	public ModelAndView supplierList(Supplier supplier,Page page,HttpServletRequest request){
+		Cookie supplierItemsPerPage=CookieUtil.getCookieByName(request, "supplierItemsPerPage");
+		if(supplierItemsPerPage!=null&& !page.isItemsPerPageSetted()){
+		     page.setItemsPerPage(Integer.parseInt(supplierItemsPerPage.getValue()));
+		}
 		List<Supplier> supplierList=ss.getSupplierList(supplier,page);
 		ModelAndView mav =new ModelAndView("supplier/supplierList");
 		mav.addObject("supplierList", supplierList);

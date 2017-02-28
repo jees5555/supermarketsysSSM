@@ -84,7 +84,11 @@ public class UserController {
 	
 	
 	@RequestMapping("userList")
-	public ModelAndView userList(User user,Page page){
+	public ModelAndView userList(User user,Page page,HttpServletRequest request){
+		Cookie userItemsPerPage=CookieUtil.getCookieByName(request, "userItemsPerPage");
+		if(userItemsPerPage!=null&& !page.isItemsPerPageSetted()){
+		     page.setItemsPerPage(Integer.parseInt(userItemsPerPage.getValue()));
+		}
 		List<User> userList=us.getUserList(user,page);
 		ModelAndView mav =new ModelAndView("user/userList");
 		mav.addObject("userList", userList);
