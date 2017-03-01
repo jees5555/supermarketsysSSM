@@ -44,7 +44,13 @@ public class SupplierController {
 		return mav;
    }
 	@RequestMapping("toSupplierAdd")
-	public String toSupplierAdd (){
+	public String toSupplierAdd (Model model,HttpServletRequest request){
+		Cookie supplierSkip=CookieUtil.getCookieByName(request, "supplierSkip");
+		if(supplierSkip!=null){
+			model.addAttribute("supplierSkip",supplierSkip.getValue());
+		}else{
+			model.addAttribute("supplierSkip","false");
+		}
 		return "supplier/supplierAddOrUpdate";
 	}
 	

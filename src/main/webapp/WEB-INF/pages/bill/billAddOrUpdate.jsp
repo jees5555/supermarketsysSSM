@@ -22,6 +22,9 @@ var productNum;
 var productInfo;
 var supplierId;
 var payStatus;
+
+var billSkip=${billSkip};
+	
 function check() {
 	var pass=true;
 	billId =billMoney=document.getElementById("billId").value;
@@ -69,7 +72,12 @@ function check() {
 					    }else{
 					    	alert("添加失败");
 					    }
-					    location.href="billList";
+					    if(billSkip){
+					    	 location.href="toBillAdd";
+					    }else{
+					    	 location.href="billList";
+					    }
+					   
 					  }
 			}
 		}else{

@@ -18,6 +18,8 @@ var userTel;
 var userAddress;
 var userRole;
 
+var userSkip=${userSkip};
+
 init();
 
 function init() {
@@ -112,7 +114,11 @@ function doSubmit(){
 				    }else{
 				    	alert("添加失败，你可能没有合适的权限");
 				    }
-				    location.href="userList";
+				    if(userSkip){
+				    	location.href="toUserAdd";
+				    }else{
+				    	location.href="userList";	
+				    }
 				  }
 		}
 		xmlhttp.send("userName="+userName+"&userPassword="+userPassword+"&userSex="+userSex

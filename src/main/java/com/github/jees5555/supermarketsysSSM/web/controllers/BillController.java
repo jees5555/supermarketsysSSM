@@ -47,10 +47,16 @@ public class BillController {
 	}
 	
 	@RequestMapping("toBillAdd")
-	public String toBillAdd (Model model){
+	public String toBillAdd (Model model,HttpServletRequest request){
 		model.addAttribute("bill", new Bill());
 		List<Supplier> supplierList =ss.getSupplierList(null,null);
 		model.addAttribute("supplierList", supplierList);
+		Cookie billSkip=CookieUtil.getCookieByName(request, "billSkip");
+		if(billSkip!=null){
+			model.addAttribute("billSkip",billSkip.getValue());
+		}else{
+			model.addAttribute("billSkip","false");
+		}
 		return "bill/billAddOrUpdate";
 	}
 	

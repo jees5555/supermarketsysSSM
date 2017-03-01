@@ -22,6 +22,8 @@ var supplierTel;
 var supplierFax;
 var supplierAddress;
 
+var supplierSkip=${supplierSkip};
+
 function check() {
 	var pass=true;
 	supplierId=document.getElementById("supplierId").value;
@@ -51,7 +53,11 @@ function check() {
 					    }else{
 					    	alert("添加失败");
 					    }
-					    location.href="supplierList";
+					    if(supplierSkip){
+					    	 location.href="toSupplierAdd";
+					    }else{
+					    	location.href="supplierList";
+					    }
 					  }
 			}
 		}else{

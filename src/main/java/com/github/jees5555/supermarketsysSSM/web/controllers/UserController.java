@@ -97,7 +97,13 @@ public class UserController {
 		return mav;
 	}
 	@RequestMapping("toUserAdd")
-	public String toUserAdd (){
+	public String toUserAdd (Model model,HttpServletRequest request){
+		Cookie userSkip=CookieUtil.getCookieByName(request, "userSkip");
+		if(userSkip!=null){
+			model.addAttribute("userSkip",userSkip.getValue());
+		}else{
+			model.addAttribute("userSkip","false");
+		}
 		return "user/userAddOrUpdate";
 	}
 	
