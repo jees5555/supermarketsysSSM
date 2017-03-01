@@ -61,7 +61,23 @@ function sub() {
  }
 }
 function def(){
-	
+	var isdef=confirm("确认要恢复默认设置吗?");
+	if(isdef){
+	xmlhttp.open("POST", "defaultSetting", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send();
+		xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					  var text=xmlhttp.responseText;
+					  if(text=="success"){
+					     alert("恢复默认成功");
+					  }else{
+					     alert("恢复默认失败");
+					  }
+					  location.href="toSystemSetting";
+					}
+		}
+}
 }
 </script>
 

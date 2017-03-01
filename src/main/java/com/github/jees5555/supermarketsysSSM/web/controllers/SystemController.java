@@ -74,4 +74,15 @@ public class SystemController {
 		}
 		return SUCCESS.getName();
 	}
+	@RequestMapping("defaultSetting")
+	@ResponseBody
+	public String defaultSetting(HttpServletResponse response){
+		CookieUtil.removeCookieByName(response, "billSkip");
+		CookieUtil.removeCookieByName(response, "supplierSkip");
+		CookieUtil.removeCookieByName(response, "userSkip");
+		CookieUtil.removeCookieByName(response, "billItemsPerPage");
+		CookieUtil.removeCookieByName(response, "supplierItemsPerPage");
+		CookieUtil.removeCookieByName(response, "userItemsPerPage");
+		return SUCCESS.getName();
+	}
 }

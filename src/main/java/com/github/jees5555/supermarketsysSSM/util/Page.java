@@ -36,16 +36,16 @@ public Integer getTotalPage() {
 	return totalPage;
 }
 public void setTotalPage(Integer totalItems) {
-	if(totalItems%this.itemsPerPage==0){
-	    this.totalPage = totalItems/this.itemsPerPage;
+	if(totalItems%getItemsPerPage()==0){
+	    this.totalPage = totalItems/getItemsPerPage();
 	}else{
-		this.totalPage = totalItems/this.itemsPerPage+1;
+		this.totalPage = totalItems/getItemsPerPage()+1;
 	}
 	
 }
 //mysql分页使用
 public Integer getMySQLLimitStart() {
-	return itemsPerPage*(currPage-1);
+	return getItemsPerPage()*(this.currPage-1);
 }
 
 }

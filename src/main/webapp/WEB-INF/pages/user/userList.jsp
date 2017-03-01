@@ -52,6 +52,7 @@ function goany(){
 }
 
 function changeItemsPerPage() {
+	document.getElementById("page").value= 1;
 	document.getElementById("userform").submit();
 }
 function search() {
