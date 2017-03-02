@@ -18,7 +18,7 @@ var userTel;
 var userAddress;
 var userRole;
 
-var userSkip=${userSkip};
+var userSkip=${userSkip==null?false:userSkip};
 
 init();
 
@@ -191,6 +191,9 @@ function updatePwd(id) {
 		location.href ="toUserPasswordUpdate?userId="+id;
 	
 }
+function checkIsNum(obj) {
+	  obj.value=obj.value.replace(/[^0-9]/g,'');
+	} 
 </script>
 </head>
 <body>
@@ -237,14 +240,14 @@ function updatePwd(id) {
 				<tr>
 					<td class="field">用户年龄：</td>
 					<td><input type="text" name="userAge" class="text" id="userAge"
-					 value="${user.userAge }"/> 
+					 value="${user.userAge }" onkeyup="checkIsNum(this)" onchange="checkIsNum(this)"/> 
 					<font color="red">*</font>
 					<font id="userAgeMsg" color="red"></font></td>
 				</tr>
 				<tr>
 					<td class="field">用户电话：</td>
 					<td><input type="text" name="userTel" class="text" id="userTel" 
-					value="${user.userTel }"/> 
+					value="${user.userTel }" onkeyup="checkIsNum(this)" onchange="checkIsNum(this)"/> 
 					<font color="red">*</font>
 					<font id="userTelMsg" color="red"></font></td>
 

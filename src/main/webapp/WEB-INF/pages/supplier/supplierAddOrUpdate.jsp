@@ -22,7 +22,7 @@ var supplierTel;
 var supplierFax;
 var supplierAddress;
 
-var supplierSkip=${supplierSkip};
+var supplierSkip=${supplierSkip==null?false:supplierSkip};
 
 function check() {
 	var pass=true;
@@ -97,6 +97,9 @@ function del(id) {
 		 }
 	}
 }
+function checkIsNum(obj) {
+	  obj.value=obj.value.replace(/[^0-9]/g,'');
+	} 
 </script>
 </head>
 <body>
@@ -129,13 +132,13 @@ function del(id) {
 				<tr>
 					<td class="field">供应商电话：</td>
 					<td><input name="supplierTel" id="supplierTel" class="text" type="text" 
-					value="${supplier.supplierTel }"/></td>
+					value="${supplier.supplierTel }" onkeyup="checkIsNum(this)" onchange="checkIsNum(this)"/></td>
 				</tr>
 				<tr>
 					<td class="field">供应商传真：</td>
 
 					<td><input name="supplierFax" id="supplierFax" class="text" type="text" 
-					value="${supplier.supplierFax }"/></td>
+					value="${supplier.supplierFax }" onkeyup="checkIsNum(this)" onchange="checkIsNum(this)"/></td>
 				</tr>
 				<tr>
 					<td class="field">供应商地址：</td>

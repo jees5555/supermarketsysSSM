@@ -23,7 +23,7 @@ var productInfo;
 var supplierId;
 var payStatus;
 
-var billSkip=${billSkip};
+var billSkip=${billSkip==null?false:billSkip};
 	
 function check() {
 	var pass=true;
@@ -117,6 +117,9 @@ function del(id) {
 		 }
 	}
 }
+function checkIsNum(obj) {
+  obj.value=obj.value.replace(/[^0-9]/g,'');
+} 
 </script>
 </head>
 <body>
@@ -132,7 +135,7 @@ function del(id) {
 					<tr>
 						<td class="field">交易金额：</td>
 						<td><input id="billMoney" type="text" name="billMoney"
-							class="text" value="${bill.billMoney }" /> 
+							class="text" value="${bill.billMoney }" onkeyup="checkIsNum(this)" onchange="checkIsNum(this)" /> 
 							<font color="red">*</font>
 							<font id="billMoneyMsg" color="red"></font></td>
 					</tr>
@@ -146,7 +149,7 @@ function del(id) {
 					<tr>
 						<td class="field">交易数量：</td>
 						<td><input id="productNum" type="text" name="productNum"
-							class="text" value="${bill.productNum }" />
+							class="text" value="${bill.productNum }" onkeyup="checkIsNum(this)" onchange="checkIsNum(this)"/>
 							<font color="red">*</font>
 							<font id="productNumMsg" color="red"></font></td>
 					</tr>
