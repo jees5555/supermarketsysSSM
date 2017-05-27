@@ -10,18 +10,18 @@
 </head>
 <body class="frame-bd">
 <ul class="left-menu">
-    <li><a href="bill/billList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_bill.gif" /></a></li>
+    <li><a href="bill/billList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/${language}/btn_bill.gif" /></a></li>
     <c:choose>
     <c:when test="${sessionScope.userRole==0}">
-    <li><a href="user/toUserUpdate?userId=${sessionScope.userId }" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
+    <li><a href="user/toUserUpdate?userId=${sessionScope.userId }" target="mainFrame"><img src="${pageContext.request.contextPath}/images/${language}/btn_users.gif" /></a></li>
     </c:when>
     <c:otherwise>
-	<li><a href="supplier/supplierList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_suppliers.gif" /></a></li>
-	<li><a href="user/userList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_users.gif" /></a></li>
+	<li><a href="supplier/supplierList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/${language}/btn_suppliers.gif" /></a></li>
+	<li><a href="user/userList" target="mainFrame"><img src="${pageContext.request.contextPath}/images/${language}/btn_users.gif" /></a></li>
 	</c:otherwise>
 	</c:choose>
-	<li><a href="system/toSystemSetting"  target="mainFrame"><img src="${pageContext.request.contextPath}/images/btn_setting.gif" /></a></li>
-	<li><a href="user/logout"><img src="${pageContext.request.contextPath}/images/btn_exit.gif" /></a></li>
+	<li><a href="system/toSystemSetting"  target="mainFrame"><img src="${pageContext.request.contextPath}/images/${language}/btn_setting.gif" /></a></li>
+	<li><a href="user/logout"><img src="${pageContext.request.contextPath}/images/${language}/btn_exit.gif" /></a></li>
 </ul>
 </body>
 </html>

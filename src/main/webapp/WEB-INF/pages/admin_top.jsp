@@ -10,7 +10,7 @@
 <body>
 <div id="header">
 	<div class="title"></div>
-	<div class="welcome">欢迎您：${sessionScope.userName }</div>
+	<div class="welcome">${displaykey['main.top.welcome']}：${sessionScope.userName }</div>
 </div>
 </body>
 </html>

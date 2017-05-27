@@ -9,25 +9,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 import com.github.jees5555.supermarketsysSSM.web.controllers.UserController;
 
 @Controller
 public class MainView {
 	@RequestMapping({"/","index"})
-	public String toLogin (HttpServletRequest request,HttpSession session){
+	public String toLogin (HttpServletRequest request,HttpSession session,String language){
 		Cookie userName=CookieUtil.getCookieByName(request, "userName");
 		Cookie userPassword=CookieUtil.getCookieByName(request, "userPassword");
+		
 		if(userName!=null && userPassword!=null){
 			return "redirect:/user/autologin";
 		}
+		if(language==null||language.equals("")){
+			if(session.getAttribute("language")==null ||session.getAttribute("language").equals("")){
+				language="zh-cn";
+			}else{
+				language=(String) session.getAttribute("language");
+			}
+			
+		}
+		session.setAttribute("language", language);
+		request.setAttribute("displaykey", LanguageUtil.getDisplayKey(language));
 		return "login";
 	}
     @RequestMapping("main")
-    public String toMain(){
+    public String toMain(HttpServletRequest request,HttpSession session){
+    	request.setAttribute("displaykey", LanguageUtil.getDisplayKey((String)session.getAttribute("language")));
     	return "admin_index";
     }
 	@RequestMapping("showTop")
-	public String showTop (){
+	public String showTop (HttpServletRequest request,HttpSession session){
+		request.setAttribute("displaykey", LanguageUtil.getDisplayKey((String)session.getAttribute("language")));
 		return "admin_top";
 	}
 	@RequestMapping("showLeft")
@@ -35,7 +49,8 @@ public class MainView {
 		return "admin_left";
 	}
 	@RequestMapping("showWelcome")
-	public String showWelcome (){
+	public String showWelcome (HttpServletRequest request,HttpSession session){
+		request.setAttribute("displaykey", LanguageUtil.getDisplayKey((String)session.getAttribute("language")));
 		return "admin_welcome";
 	}
 }

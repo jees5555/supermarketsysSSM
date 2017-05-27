@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.jees5555.supermarketsysSSM.entity.Setting;
 import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 
@@ -43,6 +44,7 @@ public class SystemController {
 		if(userItemsPerPage!=null){
 		model.addAttribute("userItemsPerPage",userItemsPerPage.getValue());
 		}
+		model.addAttribute("displaykey", LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return "system/systemSetting";
 	}
 	@RequestMapping("saveSetting")

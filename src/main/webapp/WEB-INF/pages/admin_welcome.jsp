@@ -7,6 +7,6 @@
 <title></title>
 </head>
 <body>
-<font style="font-size: 30px;">欢迎访问超市账单管理系统</font>
+<font style="font-size: 30px;">${displaykey['main.right.welcome']}</font>
 </body>
 </html>

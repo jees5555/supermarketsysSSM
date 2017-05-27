@@ -38,9 +38,9 @@ function sub() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					  var text=xmlhttp.responseText;
 					  if(text=="success"){
-					     alert("修改成功");
+					     alert("${displaykey['systemsetting.modifiedsuccess']}");
 					  }else{
-					     alert("修改失败");
+					     alert("${displaykey['systemsetting.modifiedfail']}");
 					  }
 					  location.href="toSystemSetting";
 					}
@@ -51,9 +51,9 @@ function sub() {
 		 if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			var text=xmlhttp.responseText;
 				 if(text=="success"){
-				    alert("修改成功");
+				    alert("${displaykey['systemsetting.modifiedsuccess']}");
 				   }else{
-				    alert("修改失败");
+				    alert("${displaykey['systemsetting.modifiedfail']}");
 				   }
 				 location.href="toSystemSetting";
 			 }

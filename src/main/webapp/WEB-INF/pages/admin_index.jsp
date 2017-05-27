@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>超市账单管理系统</title>
+<title>${displaykey['main.title']}</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 </head>
 <frameset rows="100,*" cols="*" frameborder="no" border="0" framespacing="0">

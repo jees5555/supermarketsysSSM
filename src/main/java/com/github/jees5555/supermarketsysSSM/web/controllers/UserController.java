@@ -22,6 +22,7 @@ import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
 import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -35,7 +36,9 @@ public class UserController {
     public String autoLogin(HttpServletResponse response,HttpServletRequest request,HttpSession session){
 		Cookie userName=CookieUtil.getCookieByName(request, "userName");
 		Cookie userPassword=CookieUtil.getCookieByName(request, "userPassword");
+		Cookie cLanguage=CookieUtil.getCookieByName(request, "language");
 		User user =new User();
+		String language;
 		user.setUserName(userName.getValue());
 		user.setUserPassword(userPassword.getValue());
     	user=us.login(user);
@@ -47,21 +50,29 @@ public class UserController {
 			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("userName",user.getUserName());
 			session.setAttribute("userRole", user.getUserRole());
+			if(cLanguage==null){
+				language="zh-cn";
+			}else{
+				language=cLanguage.getValue();
+			}
+			session.setAttribute("language", language);
 			return "redirect:/main";
 		}
     }
 	
 	@RequestMapping(method=RequestMethod.POST,value="/login")
 	public String login(User user,boolean autologin,Model model,HttpSession session,
-			HttpServletResponse response){
+			HttpServletRequest request,HttpServletResponse response,String language){
 		user=us.login(user);
 		if(user==null){
-			model.addAttribute("msg", "用户名或密码不正确");
+			model.addAttribute("msg",  LanguageUtil.getDisplayKey(language).get("login.usrorpwd.error"));
+			request.setAttribute("displaykey", LanguageUtil.getDisplayKey(language));
 			return "login";
 		}
 		if(autologin){
 			CookieUtil.addCookie(response, "userName", user.getUserName(), Integer.MAX_VALUE);
 			CookieUtil.addCookie(response, "userPassword", user.getUserPassword(), Integer.MAX_VALUE);
+			CookieUtil.addCookie(response, "language", language, Integer.MAX_VALUE);
 		}
 		session.setAttribute("userId", user.getUserId());
 		session.setAttribute("userName",user.getUserName());
@@ -73,13 +84,17 @@ public class UserController {
 	@ResponseBody
 	public String logout(HttpServletResponse response,HttpServletRequest request){
 		HttpSession session=request.getSession();
+		String language =(String) session.getAttribute("language");
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
 		session.removeAttribute("userRole");
+		session.removeAttribute("language");
 		CookieUtil.removeCookieByName(response, "userName");
 		CookieUtil.removeCookieByName(response, "userPassword");
+		CookieUtil.removeCookieByName(response, "language");
 		String contextPath=request.getContextPath();
-		return "<script>alert('用户已退出');window.open ('"+contextPath+"/','_top')</script>";  
+		return "<script>alert('"+LanguageUtil.getDisplayKey(language).get("logout.msg")+"');"+
+				"window.open ('"+contextPath+"/?language="+language+"','_top')</script>";  
 	}
 	
 	
