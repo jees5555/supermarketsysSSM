@@ -14,6 +14,7 @@ import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("system")
@@ -49,7 +50,7 @@ public class SystemController {
 	}
 	@RequestMapping("saveSetting")
 	@ResponseBody
-	public String saveSetting(Setting setting,HttpServletResponse response){
+	public String saveSetting(Setting setting,HttpServletResponse response,HttpSession session,String language){
 		Boolean billSkip=setting.getBillSkip();
 		Boolean supplierSkip=setting.getSupplierSkip();
 		Boolean userSkip=setting.getUserSkip();
@@ -73,6 +74,12 @@ public class SystemController {
 		}
 		if(userItemsPerPage!=null){
 		CookieUtil.addCookie(response, "userItemsPerPage",userItemsPerPage.toString(), Integer.MAX_VALUE);
+		}
+		if(language!=null&&!language.equals("")){
+			CookieUtil.addCookie(response, "language",language, Integer.MAX_VALUE);
+			session.setAttribute("language", language);
+		}else{
+			return FAILURE.getName();
 		}
 		return SUCCESS.getName();
 	}

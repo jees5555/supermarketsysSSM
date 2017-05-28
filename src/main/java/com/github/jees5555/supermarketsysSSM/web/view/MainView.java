@@ -7,10 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
 import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
-import com.github.jees5555.supermarketsysSSM.web.controllers.UserController;
 
 @Controller
 public class MainView {

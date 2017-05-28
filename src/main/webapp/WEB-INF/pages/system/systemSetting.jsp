@@ -18,6 +18,7 @@ var supplierSkip;
 var supplierItemsPerPage;
 var userSkip;
 var userItemsPerPage;
+var language;
 
 function sub() {
 	var adminPermission =${sessionScope.userRole!=0};
@@ -29,11 +30,12 @@ function sub() {
 	userSkip=document.getElementById("userSkip").checked;
 	userItemsPerPage=document.getElementById("userItemsPerPage").value;
 	}
+	language=document.getElementById("language").value;
     xmlhttp.open("POST", "saveSetting", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	if(adminPermission){
 		xmlhttp.send("billSkip="+billSkip+"&billItemsPerPage="+billItemsPerPage+"&supplierSkip="+supplierSkip
-					+"&supplierItemsPerPage="+supplierItemsPerPage+"&userSkip="+userSkip+"&userItemsPerPage="+userItemsPerPage);
+					+"&supplierItemsPerPage="+supplierItemsPerPage+"&userSkip="+userSkip+"&userItemsPerPage="+userItemsPerPage+"&language="+language);
 		xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					  var text=xmlhttp.responseText;
@@ -42,11 +44,13 @@ function sub() {
 					  }else{
 					     alert("${displaykey['systemsetting.modifiedfail']}");
 					  }
+					  window.parent.leftFrame.location.href="${pageContext.request.contextPath}/showLeft";
+					  window.parent.topFrame.location.href="${pageContext.request.contextPath}/showTop";
 					  location.href="toSystemSetting";
 					}
 	    }
 	 }else{
-	 xmlhttp.send("billSkip="+billSkip+"&billItemsPerPage="+billItemsPerPage);
+	 xmlhttp.send("billSkip="+billSkip+"&billItemsPerPage="+billItemsPerPage+"&language="+language);
 	 xmlhttp.onreadystatechange=function(){
 		 if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			var text=xmlhttp.responseText;
@@ -55,13 +59,15 @@ function sub() {
 				   }else{
 				    alert("${displaykey['systemsetting.modifiedfail']}");
 				   }
+				 window.parent.leftFrame.location.href="${pageContext.request.contextPath}/showLeft";
+				  window.parent.topFrame.location.href="${pageContext.request.contextPath}/showTop";
 				 location.href="toSystemSetting";
 			 }
 		}
  }
 }
 function def(){
-	var isdef=confirm("确认要恢复默认设置吗?");
+	var isdef=confirm("${displaykey['systemsetting.todefault']}");
 	if(isdef){
 	xmlhttp.open("POST", "defaultSetting", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -70,9 +76,9 @@ function def(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					  var text=xmlhttp.responseText;
 					  if(text=="success"){
-					     alert("恢复默认成功");
+					     alert("${displaykey['systemsetting.todefaultsuccess']}");
 					  }else{
-					     alert("恢复默认失败");
+					     alert("${displaykey['systemsetting.todefaultfail']}");
 					  }
 					  location.href="toSystemSetting";
 					}
@@ -85,7 +91,7 @@ function def(){
 <body>
 <div class="main">
 	<div class="optitle clearfix">
-		<div class="title">系统设置&gt;&gt;</div>
+		<div class="title">${displaykey['systemsetting.title']}&gt;&gt;</div>
 
 	</div>
 	<form id="systemform" method="post" action="saveSetting">
@@ -119,13 +125,20 @@ function def(){
 	              <option value="20" ${userItemsPerPage==20?'selected':''}>20</option>
 	              </select>
 	        </td></tr>
-			</c:if>	
+			</c:if>
+			<tr><td>&nbsp;&nbsp;语言&nbsp;</td>
+	              <td><select id="language" name="language">
+			    <option value="en-us" ${language=='en-us'?"selected='selected'":"" }>English</option>
+			    <option value="ja-jp" ${language=='ja-jp'?"selected='selected'":"" }>日本語</option>
+			    <option value="zh-cn" ${language=='zh-cn'?"selected='selected'":"" }>简体中文</option>
+			    </select>
+	        </td></tr>	
 			</table>
 		</div>
 		<div class="buttons">
-			<input type="button" onclick="sub()" value="修改" class="input-button"/>
-			<input type="reset" name="res"  value="重置" class="input-button"/> 
-			<input type="button" onclick="def()" value="恢复默认" class="input-button"/> 
+			<input type="button" onclick="sub()" value="${displaykey['systemsetting.modify']}" class="input-button"/>
+			<input type="reset" name="res"  value="${displaykey['systemsetting.reset']}" class="input-button"/> 
+			<input type="button" onclick="def()" value="${displaykey['systemsetting.default']}" class="input-button"/> 
 		</div>
 
 	</form>
