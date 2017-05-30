@@ -40,9 +40,9 @@ function sub() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					  var text=xmlhttp.responseText;
 					  if(text=="success"){
-					     alert("${displaykey['systemsetting.modifiedsuccess']}");
+					     alert("${displaykey['common.modifiedsuccess']}");
 					  }else{
-					     alert("${displaykey['systemsetting.modifiedfail']}");
+					     alert("${displaykey['common.modifiedfail']}");
 					  }
 					  window.parent.leftFrame.location.href="${pageContext.request.contextPath}/showLeft";
 					  window.parent.topFrame.location.href="${pageContext.request.contextPath}/showTop";
@@ -55,9 +55,9 @@ function sub() {
 		 if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			var text=xmlhttp.responseText;
 				 if(text=="success"){
-				    alert("${displaykey['systemsetting.modifiedsuccess']}");
+				    alert("${displaykey['common.modifiedsuccess']}");
 				   }else{
-				    alert("${displaykey['systemsetting.modifiedfail']}");
+				    alert("${displaykey['common.modifiedfail']}");
 				   }
 				 window.parent.leftFrame.location.href="${pageContext.request.contextPath}/showLeft";
 				  window.parent.topFrame.location.href="${pageContext.request.contextPath}/showTop";
@@ -76,9 +76,9 @@ function def(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					  var text=xmlhttp.responseText;
 					  if(text=="success"){
-					     alert("${displaykey['systemsetting.todefaultsuccess']}");
+					     alert("${displaykey['common.todefaultsuccess']}");
 					  }else{
-					     alert("${displaykey['systemsetting.todefaultfail']}");
+					     alert("${displaykey['common.todefaultfail']}");
 					  }
 					  location.href="toSystemSetting";
 					}
@@ -97,9 +97,9 @@ function def(){
 	<form id="systemform" method="post" action="saveSetting">
 		<div class="content">
 			<table class="box">
-			<tr><td>&nbsp;&nbsp;添加帐单列表完成后直接添加下一个</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.billtonext']}</td>
 			<td><input  id="billSkip" type="checkbox" name="billSkip" ${billSkip =="true"?"checked='checked'":"" }/></td></tr>
-			<tr><td>&nbsp;&nbsp;帐单列表每页显示条数&nbsp;</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.billperpage']}&nbsp;</td>
 	              <td><select id="billItemsPerPage" name="billItemsPerPage" class="input-text">
 	              <option value="5" ${billItemsPerPage==5?'selected':''}>5</option>
 	              <option value="10" ${billItemsPerPage==10?'selected':''}>10</option>
@@ -107,18 +107,18 @@ function def(){
 	              </select>
 	        </td></tr>
             <c:if test="${sessionScope.userRole!=0}">
-			<tr><td>&nbsp;&nbsp;添加供应商列表完成后直接添加下一个</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.suppliertonext']}</td>
 			<td><input id="supplierSkip" type="checkbox" name="supplierSkip" ${supplierSkip =="true"?"checked='checked'":"" }/></td></tr>
-			<tr><td>&nbsp;&nbsp;供应商列表每页显示条数&nbsp;</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.supplierperpage']}&nbsp;</td>
 	              <td><select id="supplierItemsPerPage" name="supplierItemsPerPage" class="input-text">
 	              <option value="5" ${supplierItemsPerPage==5?'selected':''}>5</option>
 	              <option value="10" ${supplierItemsPerPage==10?'selected':''}>10</option>
 	              <option value="20" ${supplierItemsPerPagee==20?'selected':''}>20</option>
 	              </select>
 	        </td></tr>
-			<tr><td>&nbsp;&nbsp;添加用户列表完成后直接添加下一个</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.usertonext']}</td>
 			<td><input id="userSkip" type="checkbox" name="userSkip"  ${userSkip =="true"?"checked='checked'":"" }/>&nbsp;&nbsp;</td></tr>
-			<tr><td>&nbsp;&nbsp;用户列表每页显示条数&nbsp;</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.userperpage']}&nbsp;</td>
 	              <td><select id="userItemsPerPage" name="userItemsPerPage" class="input-text">
 	              <option value="5" ${userItemsPerPage==5?'selected':''}>5</option>
 	              <option value="10" ${userItemsPerPage==10?'selected':''}>10</option>
@@ -126,7 +126,7 @@ function def(){
 	              </select>
 	        </td></tr>
 			</c:if>
-			<tr><td>&nbsp;&nbsp;语言&nbsp;</td>
+			<tr><td>&nbsp;&nbsp;${displaykey['systemsetting.language']}&nbsp;</td>
 	              <td><select id="language" name="language">
 			    <option value="en-us" ${language=='en-us'?"selected='selected'":"" }>English</option>
 			    <option value="ja-jp" ${language=='ja-jp'?"selected='selected'":"" }>日本語</option>
@@ -136,9 +136,9 @@ function def(){
 			</table>
 		</div>
 		<div class="buttons">
-			<input type="button" onclick="sub()" value="${displaykey['systemsetting.modify']}" class="input-button"/>
-			<input type="reset" name="res"  value="${displaykey['systemsetting.reset']}" class="input-button"/> 
-			<input type="button" onclick="def()" value="${displaykey['systemsetting.default']}" class="input-button"/> 
+			<input type="button" onclick="sub()" value="${displaykey['common.modify']}" class="input-button"/>
+			<input type="reset" name="res"  value="${displaykey['common.reset']}" class="input-button"/> 
+			<input type="button" onclick="def()" value="${displaykey['common.default']}" class="input-button"/> 
 		</div>
 
 	</form>

@@ -65,46 +65,48 @@ function search() {
 <form id="billform" method="get" action="billList">
 	<div class="menu">
 	<table width="860px"><tbody>
-	<tr><td>商品名称：<input type="text" name="productName"
+	<tr><td>${displaykey['bill.productname']}：<input type="text" name="productName"
 				value="${productName==null?'':productName }" class="input-text" />&nbsp;&nbsp;&nbsp;&nbsp;
-			是否付款：<select name="payStatus" class="input-text">
+			${displaykey['bill.paystatus']}：<select name="payStatus" class="input-text">
 				<option value=""
-					${payStatus==null?'selected':''}>请选择</option>
+					${payStatus==null?'selected':''}>${displaykey['common.choose']}</option>
 				<option value="1"
-					${payStatus==1?'selected':''}>已付款</option>
+					${payStatus==1?'selected':''}>${displaykey['bill.paystatus.yes']}</option>
 				<option value="0"
-					${payStatus==0?'selected':''}>未付款</option>
+					${payStatus==0?'selected':''}>${displaykey['bill.paystatus.no']}</option>
 			</select>&nbsp;&nbsp;&nbsp;&nbsp; 
-			<input type="button" value="组合查询" class="button" onclick="search()"/>
+			<input type="button" value="${displaykey['common.combinedsearch']}" class="button" onclick="search()"/>
 		</td></tr>
 		</tbody></table>
 	</div>
 	<div class="main">
 	<div class="optitle clearfix">
-		<em><input type="button" name="button" value="添加数据" class="input-button" 
+		<em><input type="button" name="button" value="${displaykey['common.adddata']}" class="input-button" 
 		onclick="location.href='toBillAdd'" /></em>
-		<div class="title">账单管理&gt;&gt;</div>
+		<div class="title">${displaykey['bill.title']}&gt;&gt;</div>
 	</div>
 	<div class="content">
 		<table class="list">
 		<tbody>
 			<tr>
-				<td height="29"><div class="STYLE1" align="center">账单编号</div></td>
-				<td><div class="STYLE1" align="center">商品名称</div></td>
-				<td><div class="STYLE1" align="center">商品数量</div></td>
-				<td><div class="STYLE1" align="center">交易金额</div></td>
-				<td><div class="STYLE1" align="center">是否付款</div></td>
-				<td><div class="STYLE1" align="center">供应商名称</div></td>
-				<td><div class="STYLE1" align="center">商品描述</div></td>
-				<td><div class="STYLE1" align="center">账单时间</div></td>
+				<td height="29"><div class="STYLE1" align="center">${displaykey['bill.billid']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.productname']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.productnum']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.billmoney']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.paystatus']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.suppliername']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.productinfo']}</div></td>
+				<td><div class="STYLE1" align="center">${displaykey['bill.billtime']}</div></td>
 			</tr>
 			<c:forEach items="${billList }" var="bill" varStatus="vs">
+			<c:set var="yes" value="${displaykey['bill.paystatus.yes']}"/>
+			<c:set var="no" value="${displaykey['bill.paystatus.no']}"/>
 			<tr>
 				<td height="23"><span class="STYLE1">${bill.billId }</span></td>
 				<td><span class="STYLE1"><a href="toBillUpdate?billId=${bill.billId }">${bill.productName }</a></span></td>
 				<td><span class="STYLE1">${bill.productNum }</span></td>
 				<td><span class="STYLE1">${bill.billMoney }</span></td>
-				<td><span class="STYLE1">${bill.payStatus==0?"未付款":"已付款" }</span></td>
+				<td><span class="STYLE1">${bill.payStatus==0?no:yes }</span></td>
 				<td><span class="STYLE1">${bill.supplierName }</span></td>
 				<td><span class="STYLE1">${bill.productInfo }</span></td>
 				<td><span class="STYLE1">${bill.formatBillTime }</span></td>
@@ -116,10 +118,10 @@ function search() {
   </div>
   <div class ="menu">
   <table  width="860px"><tbody><tr><td>
-	<input type="button" name="first" value="首页" class="button" onclick="gofirst()"/>
-	<input type="button" name="forward" value="上一页" class="button" onclick="goforward()"/>
-	<input type="button" name="next" value="下一页" class="button" onclick="gonext()"/>
-	<input type="button" name="last" value="末页" class="button" onclick="golast()"/>
+	<input type="button" name="first" value="${displaykey['common.toppage']}" class="button" onclick="gofirst()"/>
+	<input type="button" name="forward" value="${displaykey['common.previouspage']}" class="button" onclick="goforward()"/>
+	<input type="button" name="next" value="${displaykey['common.nextpage']}" class="button" onclick="gonext()"/>
+	<input type="button" name="last" value="${displaykey['common.lastpage']}" class="button" onclick="golast()"/>
 	&nbsp;当前第${page.currPage}页，共${page.totalPage}页&nbsp;
 	<input type ="text" id="page" name="currPage" value="${page.currPage}" class="input-text" style="width:30px"/>
 	<input type="button" name="any" value="跳转" class="button" onclick="goany()"/>

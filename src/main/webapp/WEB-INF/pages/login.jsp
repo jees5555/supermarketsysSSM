@@ -56,7 +56,7 @@ function changeLanguage(){
 			    </select>
 			    <input type="checkbox" name="autologin" /><font style="font-weight: bold;" size="1px;" color="#3379b7" >${displaykey['login.autologin']}</font>
 			    <input type="button" onclick="check();" name="login" value="${displaykey['login.login']}" class="input-button" />
-				<input type="reset" name="reset" value="${displaykey['login.reset']}" class="input-button" />
+				<input type="reset" name="reset" value="${displaykey['common.reset']}" class="input-button" />
 			  
 			</div>
 			<p align="right"><font style="font-weight: bold;" size="3px;" color="red" >${msg }</font></p>
