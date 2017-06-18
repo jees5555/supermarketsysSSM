@@ -10,7 +10,7 @@ var totalPage=${page.totalPage};
 var currPage=${page.currPage};
 function gofirst(){
 	if(currPage==1){
-		alert("已经在首页");
+		alert("${displaykey['common.msg.attoppage']}");
 	}else{
 		document.getElementById("page").value= 1;
 		document.getElementById("billform").submit();
@@ -18,7 +18,7 @@ function gofirst(){
 }
 function goforward(){
 	if(currPage==1){
-		alert("已经在首页");
+		alert("${displaykey['common.msg.attoppage']}");
 	}else{
 		document.getElementById("page").value= currPage-1;
 		document.getElementById("billform").submit();
@@ -26,7 +26,7 @@ function goforward(){
 }
 function gonext(){
 	if(currPage>=totalPage){
-		alert("已达到末页");
+		alert("${displaykey['common.msg.atlastpage']}");
 	}else{
 		document.getElementById("page").value= currPage+1;
 		document.getElementById("billform").submit();
@@ -34,7 +34,7 @@ function gonext(){
 }
 function golast(){
 	if(currPage>=totalPage){
-		alert("已达到末页");
+		alert("${displaykey['common.msg.atlastpage']}");
 	}else{
 		document.getElementById("page").value= totalPage;
 		document.getElementById("billform").submit();
@@ -44,7 +44,7 @@ function golast(){
 function goany(){
 	var toPage =document.getElementById("page").value;
 	if(toPage<=0||toPage>totalPage){
-		alert("没有这一页");
+		alert("${displaykey['common.msg.invalidpage']}");
 		document.getElementById("page").value=currPage;
 	}else{
 		document.getElementById("billform").submit();
@@ -64,7 +64,7 @@ function search() {
 <body>
 <form id="billform" method="get" action="billList">
 	<div class="menu">
-	<table width="860px"><tbody>
+	<table width="1000px"><tbody>
 	<tr><td>${displaykey['bill.productname']}：<input type="text" name="productName"
 				value="${productName==null?'':productName }" class="input-text" />&nbsp;&nbsp;&nbsp;&nbsp;
 			${displaykey['bill.paystatus']}：<select name="payStatus" class="input-text">
@@ -117,20 +117,20 @@ function search() {
 	</div>
   </div>
   <div class ="menu">
-  <table  width="860px"><tbody><tr><td>
+  <table  width="1000px"><tbody><tr><td>
 	<input type="button" name="first" value="${displaykey['common.toppage']}" class="button" onclick="gofirst()"/>
 	<input type="button" name="forward" value="${displaykey['common.previouspage']}" class="button" onclick="goforward()"/>
 	<input type="button" name="next" value="${displaykey['common.nextpage']}" class="button" onclick="gonext()"/>
 	<input type="button" name="last" value="${displaykey['common.lastpage']}" class="button" onclick="golast()"/>
-	&nbsp;当前第${page.currPage}页，共${page.totalPage}页&nbsp;
+	&nbsp;${displaykey['common.currpage']}:${page.currPage}，${displaykey['common.totalpage']}:${page.totalPage}&nbsp;
 	<input type ="text" id="page" name="currPage" value="${page.currPage}" class="input-text" style="width:30px"/>
-	<input type="button" name="any" value="跳转" class="button" onclick="goany()"/>
-	每页显示&nbsp;
+	<input type="button" name="any" value="${displaykey['common.go']}" class="button" onclick="goany()"/>
+	${displaykey['common.itemsperpage']}:
 	<select id="itemsPerPage" name="itemsPerPage" class="input-text" onchange="changeItemsPerPage()">
 	<option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
 	<option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
 	<option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
-	</select>&nbsp;条
+	</select>&nbsp;
 	</td></tr></tbody></table>
 	</div>
 	</form>
