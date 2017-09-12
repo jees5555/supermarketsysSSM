@@ -6,7 +6,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
-<!-- Spring监听器  -->
+<!-- Spring监听器，加载spring配置文件中的bean  -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -30,15 +30,16 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>	
 	
- <!-- 配置分发器 -->
+ <!-- 配置分发器（Spring MVC部分） -->
   <servlet>
   <servlet-name>spring</servlet-name>
   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   <init-param>
-      <!-- 如果不指定，默认名为 你的SERVLET名字-servlet.xml -->
+  	<!-- 指定MVC配置文件，如果不指定，默认名为"你的SERVLET名字-servlet.xml" -->
 	  <param-name>contextConfigLocation</param-name>
 	  <param-value>classpath:springMvc.xml</param-value>
 	</init-param>
+	  	<!-- 优先级最高 -->
 		<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
@@ -46,7 +47,7 @@
   <url-pattern>/</url-pattern>
   </servlet-mapping>
   
-  <!-- 配置静态资源 -->
+  <!-- 配置静态资源，这种方式不会被拦截器拦截 -->
   <servlet-mapping>
   <servlet-name>default</servlet-name>
   <url-pattern>/css/*</url-pattern>
