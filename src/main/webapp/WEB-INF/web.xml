@@ -31,6 +31,13 @@
   </filter-mapping>	
 	
  <!-- 配置分发器 -->
+ <!-- 要使用Servlet配置静态资源WAS必须加 -->
+ <!-- WebSphere使用 -->
+ <!--<servlet>  
+  <servlet-name>default</servlet-name>  
+	<servlet-class>com.ibm.ws.webcontainer.servlet.SimpleFileServlet</servlet-class>  
+	<load-on-startup>1</load-on-startup> 
+</servlet> -->
   <servlet>
   <servlet-name>spring</servlet-name>
   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -45,9 +52,10 @@
   <servlet-name>spring</servlet-name>
   <url-pattern>/</url-pattern>
   </servlet-mapping>
-  
+
+
   <!-- 配置静态资源 -->
-  <servlet-mapping>
+  <!--<servlet-mapping>
   <servlet-name>default</servlet-name>
   <url-pattern>/css/*</url-pattern>
   </servlet-mapping>
@@ -58,5 +66,5 @@
   <servlet-mapping>
   <servlet-name>default</servlet-name>
   <url-pattern>/images/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 </web-app>

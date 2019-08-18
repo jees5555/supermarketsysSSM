@@ -7,15 +7,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.ServletUtil;
 import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 
 @Controller
 public class MainView {
 	@RequestMapping({"/","index"})
 	public String toLogin (HttpServletRequest request,HttpSession session,String language){
-		Cookie userName=CookieUtil.getCookieByName(request, "userName");
-		Cookie userPassword=CookieUtil.getCookieByName(request, "userPassword");
+		Cookie userName=ServletUtil.getCookieByName(request, "userName");
+		Cookie userPassword=ServletUtil.getCookieByName(request, "userPassword");
 		
 		if(userName!=null && userPassword!=null){
 			return "redirect:/user/autologin";

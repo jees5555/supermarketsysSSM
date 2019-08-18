@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.CookieSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.User;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.UserService;
-import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.ServletUtil;
 import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
@@ -34,17 +33,17 @@ public class UserController {
 	
 	@RequestMapping(method=RequestMethod.GET,value="/autologin")
     public String autoLogin(HttpServletResponse response,HttpServletRequest request,HttpSession session){
-		Cookie userName=CookieUtil.getCookieByName(request, "userName");
-		Cookie userPassword=CookieUtil.getCookieByName(request, "userPassword");
-		Cookie cLanguage=CookieUtil.getCookieByName(request, "language");
+		Cookie userName=ServletUtil.getCookieByName(request, "userName");
+		Cookie userPassword=ServletUtil.getCookieByName(request, "userPassword");
+		Cookie cLanguage=ServletUtil.getCookieByName(request, "language");
 		User user =new User();
 		String language;
 		user.setUserName(userName.getValue());
 		user.setUserPassword(userPassword.getValue());
     	user=us.login(user);
 		if(user==null){
-			CookieUtil.removeCookieByName(response, "userName");
-			CookieUtil.removeCookieByName(response, "userPassword");
+			ServletUtil.removeCookieByName(response, "userName");
+			ServletUtil.removeCookieByName(response, "userPassword");
 			return "redirect:/";
 		}else{
 			session.setAttribute("userId", user.getUserId());
@@ -70,9 +69,9 @@ public class UserController {
 			return "login";
 		}
 		if(autologin){
-			CookieUtil.addCookie(response, "userName", user.getUserName(), Integer.MAX_VALUE);
-			CookieUtil.addCookie(response, "userPassword", user.getUserPassword(), Integer.MAX_VALUE);
-			CookieUtil.addCookie(response, "language", language, Integer.MAX_VALUE);
+			ServletUtil.addCookie(response, "userName", user.getUserName(), Integer.MAX_VALUE);
+			ServletUtil.addCookie(response, "userPassword", user.getUserPassword(), Integer.MAX_VALUE);
+			ServletUtil.addCookie(response, "language", language, Integer.MAX_VALUE);
 		}
 		session.setAttribute("userId", user.getUserId());
 		session.setAttribute("userName",user.getUserName());
@@ -89,9 +88,9 @@ public class UserController {
 		session.removeAttribute("userName");
 		session.removeAttribute("userRole");
 		session.removeAttribute("language");
-		CookieUtil.removeCookieByName(response, "userName");
-		CookieUtil.removeCookieByName(response, "userPassword");
-		CookieUtil.removeCookieByName(response, "language");
+		ServletUtil.removeCookieByName(response, "userName");
+		ServletUtil.removeCookieByName(response, "userPassword");
+		ServletUtil.removeCookieByName(response, "language");
 		String contextPath=request.getContextPath();
 		return "<script>alert('"+LanguageUtil.getDisplayKey(language).get("logout.msg")+"');"+
 				"window.open ('"+contextPath+"/?language="+language+"','_top')</script>";  
@@ -100,7 +99,7 @@ public class UserController {
 	
 	@RequestMapping("userList")
 	public ModelAndView userList(User user,Page page,HttpServletRequest request){
-		Cookie userItemsPerPage=CookieUtil.getCookieByName(request, "userItemsPerPage");
+		Cookie userItemsPerPage=ServletUtil.getCookieByName(request, "userItemsPerPage");
 		if(userItemsPerPage!=null&& !page.isItemsPerPageSetted()){
 		     page.setItemsPerPage(Integer.parseInt(userItemsPerPage.getValue()));
 		}
@@ -109,23 +108,26 @@ public class UserController {
 		mav.addObject("userList", userList);
 		mav.addObject("userName", user.getUserName());
 		mav.addObject("page",page);
+		mav.addObject("displaykey",LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return mav;
 	}
 	@RequestMapping("toUserAdd")
 	public String toUserAdd (Model model,HttpServletRequest request){
-		Cookie userSkip=CookieUtil.getCookieByName(request, "userSkip");
+		Cookie userSkip=ServletUtil.getCookieByName(request, "userSkip");
 		if(userSkip!=null){
 			model.addAttribute("userSkip",userSkip.getValue());
 		}else{
 			model.addAttribute("userSkip","false");
 		}
+		model.addAttribute("displaykey",LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return "user/userAddOrUpdate";
 	}
 	
 	@RequestMapping("toUserUpdate")
-	public String toUserUpdate(String userId,Model model){
+	public String toUserUpdate(String userId,Model model,HttpServletRequest request){
 		User user=us.getUser(userId);
 		model.addAttribute("user", user);
+		model.addAttribute("displaykey",LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return "user/userAddOrUpdate";
 	}
 	

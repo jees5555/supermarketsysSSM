@@ -119,20 +119,20 @@ function search() {
 		</div>
 	</div>
 	<div class ="menu">
-  <table  width="860px"><tbody><tr><td>
-	<input type="button" name="first" value="首页" class="button" onclick="gofirst()"/>
-	<input type="button" name="forward" value="上一页" class="button" onclick="goforward()"/>
-	<input type="button" name="next" value="下一页" class="button" onclick="gonext()"/>
-	<input type="button" name="last" value="末页" class="button" onclick="golast()"/>
-	&nbsp;当前第${page.currPage}页，共${page.totalPage}页&nbsp;
+  <table  width="1200px"><tbody><tr><td>
+	<input type="button" name="first" value="${displaykey['common.toppage']}" class="button" onclick="gofirst()"/>
+	<input type="button" name="forward" value="${displaykey['common.previouspage']}" class="button" onclick="goforward()"/>
+	<input type="button" name="next" value="${displaykey['common.nextpage']}" class="button" onclick="gonext()"/>
+	<input type="button" name="last" value="${displaykey['common.lastpage']}" class="button" onclick="golast()"/>
+	&nbsp;${displaykey['common.currpage']}:${page.currPage}，${displaykey['common.totalpage']}:${page.totalPage}&nbsp;
 	<input type ="text" id="page" name="currPage" value="${page.currPage}" class="input-text" style="width:30px"/>
-	<input type="button" name="any" value="跳转" class="button" onclick="goany()"/>
-	每页显示&nbsp;
+	<input type="button" name="any" value="${displaykey['common.go']}" class="button" onclick="goany()"/>
+	${displaykey['common.itemsperpage']}:
 	<select id="itemsPerPage" name="itemsPerPage" class="input-text" onchange="changeItemsPerPage()">
 	<option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
 	<option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
 	<option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
-	</select>&nbsp;条
+	</select>&nbsp;
 	</td></tr></tbody></table>
 	</div>
 	</form>

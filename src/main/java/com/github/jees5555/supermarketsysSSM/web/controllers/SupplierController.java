@@ -1,5 +1,7 @@
 package com.github.jees5555.supermarketsysSSM.web.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.jees5555.supermarketsysSSM.entity.Supplier;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.SupplierService;
-import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.ServletUtil;
+import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -31,7 +34,7 @@ public class SupplierController {
 	
 	@RequestMapping("supplierList")
 	public ModelAndView supplierList(Supplier supplier,Page page,HttpServletRequest request){
-		Cookie supplierItemsPerPage=CookieUtil.getCookieByName(request, "supplierItemsPerPage");
+		Cookie supplierItemsPerPage=ServletUtil.getCookieByName(request, "supplierItemsPerPage");
 		if(supplierItemsPerPage!=null&& !page.isItemsPerPageSetted()){
 		     page.setItemsPerPage(Integer.parseInt(supplierItemsPerPage.getValue()));
 		}
@@ -41,35 +44,39 @@ public class SupplierController {
 		mav.addObject("supplierName", supplier.getSupplierName());
 		mav.addObject("supplierInfo", supplier.getSupplierInfo());
 		mav.addObject("page",page);
+		mav.addObject("displaykey",LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return mav;
    }
 	@RequestMapping("toSupplierAdd")
 	public String toSupplierAdd (Model model,HttpServletRequest request){
-		Cookie supplierSkip=CookieUtil.getCookieByName(request, "supplierSkip");
+		Cookie supplierSkip=ServletUtil.getCookieByName(request, "supplierSkip");
 		if(supplierSkip!=null){
 			model.addAttribute("supplierSkip",supplierSkip.getValue());
 		}else{
 			model.addAttribute("supplierSkip","false");
 		}
+		model.addAttribute("displaykey",LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return "supplier/supplierAddOrUpdate";
 	}
 	
 	@RequestMapping("toSupplierUpdate")
-	public String toSupplierUpdate (String supplierId,Model model){
+	public String toSupplierUpdate (String supplierId,Model model,HttpServletRequest request){
 		Supplier supplier =ss.getSupplier(supplierId);
 		model.addAttribute("supplier", supplier);
+		model.addAttribute("displaykey",LanguageUtil.getDisplayKey((String)request.getSession().getAttribute("language")));
 		return "supplier/supplierAddOrUpdate";
 	}
 	
 	@RequestMapping("supplierAddOrUpdate")
 	@ResponseBody
-	public String supplierAddOrUpdate(@Validated Supplier supplier,BindingResult result){
+	public String supplierAddOrUpdate(@Validated Supplier supplier,BindingResult result) throws UnsupportedEncodingException{
 		if(result.hasErrors()){
 			throw new MyException("参数错误");
 			}
 		if(supplier.getSupplierId()==null){
 			ss.addSupplier(supplier);
 		}else{
+			System.out.println( new String(supplier.getSupplierInfo().getBytes("ISO-8859-1"), "UTF-8"));
 			ss.updateSupplier(supplier);
 		}
 		return SUCCESS.getName();

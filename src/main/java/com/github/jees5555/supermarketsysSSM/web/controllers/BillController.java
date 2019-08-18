@@ -20,7 +20,7 @@ import com.github.jees5555.supermarketsysSSM.entity.Supplier;
 import com.github.jees5555.supermarketsysSSM.exception.MyException;
 import com.github.jees5555.supermarketsysSSM.service.BillService;
 import com.github.jees5555.supermarketsysSSM.service.SupplierService;
-import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.ServletUtil;
 import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 import com.github.jees5555.supermarketsysSSM.util.Page;
 
@@ -35,7 +35,7 @@ public class BillController {
 	
 	@RequestMapping("billList")
 	public ModelAndView billList(Bill bill,Page page,HttpServletRequest request){
-		Cookie billItemsPerPage=CookieUtil.getCookieByName(request, "billItemsPerPage");
+		Cookie billItemsPerPage=ServletUtil.getCookieByName(request, "billItemsPerPage");
 		if(billItemsPerPage!=null&& !page.isItemsPerPageSetted()){
 		     page.setItemsPerPage(Integer.parseInt(billItemsPerPage.getValue()));
 		}
@@ -54,7 +54,7 @@ public class BillController {
 		model.addAttribute("bill", new Bill());
 		List<Supplier> supplierList =ss.getSupplierList(null,null);
 		model.addAttribute("supplierList", supplierList);
-		Cookie billSkip=CookieUtil.getCookieByName(request, "billSkip");
+		Cookie billSkip=ServletUtil.getCookieByName(request, "billSkip");
 		if(billSkip!=null){
 			model.addAttribute("billSkip",billSkip.getValue());
 		}else{

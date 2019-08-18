@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.jees5555.supermarketsysSSM.exception.AccessDeniedException;
+import com.github.jees5555.supermarketsysSSM.util.ServletUtil;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class PermissionInterceptor extends BaseIntercepter {
 
 	private boolean checkPermission(HttpServletRequest request) throws Exception {
 		boolean flag = false;
-		String path = request.getServletPath();
+		String path = ServletUtil.getRequestPath(request);
 		// 截取模块名称
 		String[] urls = path.split("/");
 		String model = urls[1];

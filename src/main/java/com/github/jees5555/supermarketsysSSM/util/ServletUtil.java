@@ -7,7 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CookieUtil {
+public class ServletUtil {
 	public static void addCookie(HttpServletResponse response,String name,String value,int maxAge){
 	    Cookie cookie = new Cookie(name,value);
 	    cookie.setPath("/");
@@ -38,5 +38,13 @@ public class CookieUtil {
 	        }
 	    }
 	    return cookieMap;
+	}
+	
+	public static String getRequestPath(HttpServletRequest request) {
+		if (! request.getServletPath().isEmpty()) {
+			return request.getServletPath();
+		} else {
+			return request.getPathInfo();
+		}
 	}
 }

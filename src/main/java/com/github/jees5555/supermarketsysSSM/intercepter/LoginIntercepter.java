@@ -29,6 +29,8 @@ public class LoginIntercepter extends BaseIntercepter {
 			response.getWriter().println("<html>");  
 			response.getWriter().println("<script>");  
 			response.getWriter().println("alert('你尚未登陆或会话已过期');"); 
+			response.getWriter().println("alert('DEBUG:ServletPath"+request.getServletPath()+"');");
+			response.getWriter().println("alert('DEBUG:ContextPath"+request.getContextPath()+"');");
 			response.getWriter().println("window.open ('"+request.getContextPath()+"','_top');");  
 			response.getWriter().println("</script>");  
 			response.getWriter().println("</html>");  

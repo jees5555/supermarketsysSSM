@@ -64,32 +64,33 @@ function search() {
 <body>
 <form id="supplierform" method="post" action="supplierList">
 	<div class="menu">
-		<table width="860px"><tbody>
-		<tr><td>供应商名称：<input name="supplierName" 
+		<table width="1200px"><tbody>
+		<tr><td>${displaykey['supplier.suppliername']}：<input name="supplierName" 
 		                value="${supplierName }" class="input-text" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;
-				供应商描述：<input name="supplierInfo" value="${supplierInfo }"
+				${displaykey['supplier.supplierinfo']}：<input name="supplierInfo" value="${supplierInfo }"
 						class="input-text" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" value="组合查询" class="button" onclick="search()"/>
+						<input type="button" value="${displaykey['common.combinedsearch']}" class="button" onclick="search()"/>
 						</td></tr>
 			</tbody></table>
 	</div>
 	<div class="main">
 		<div class="optitle clearfix">
-			<em><input value="添加数据" class="input-button"
+			<em><input value="${displaykey['common.adddata']}" class="input-button"
 				onclick="window.location='toSupplierAdd'" type="button" /></em>
-			<div class="title">供应商管理&gt;&gt;</div>
+			<div class="title">${displaykey['supplier.title']}&gt;&gt;</div>
 		</div>
 
 		<div class="content">
 			<table class="list">
 				<tbody>
 					<tr>
-						<td width="70" height="29"><div class="STYLE1" align="center">编号</div></td>
-						<td width="80"><div class="STYLE1" align="center">供应商名称</div></td>
-						<td width="100"><div class="STYLE1" align="center">供应商描述</div></td>
-						<td width="100"><div class="STYLE1" align="center">联系人</div></td>
-						<td width="100"><div class="STYLE1" align="center">电话</div></td>
-						<td width="100"><div class="STYLE1" align="center">地址</div></td>
+						<td width="70" height="29"><div class="STYLE1" align="center">${displaykey['supplier.supplierid']}</div></td>
+						<td width="80"><div class="STYLE1" align="center">${displaykey['supplier.suppliername']}</div></td>
+						<td width="100"><div class="STYLE1" align="center">${displaykey['supplier.supplierinfo']}</div></td>
+						<td width="100"><div class="STYLE1" align="center">${displaykey['supplier.supplieratten']}</div></td>
+						<td width="100"><div class="STYLE1" align="center">${displaykey['supplier.suppliertel']}</div></td>
+						<td width="100"><div class="STYLE1" align="center">${displaykey['supplier.supplierfax']}</div></td>
+						<td width="100"><div class="STYLE1" align="center">${displaykey['supplier.supplieraddress']}</div></td>
 					</tr>
 					<c:forEach items="${supplierList }" var="supplier" varStatus="vs">
 					<tr>
@@ -99,6 +100,7 @@ function search() {
 						<td><span class="STYLE1">${supplier.supplierInfo }</span></td>
 						<td><span class="STYLE1">${supplier.supplierAtten }</span></td>
 						<td><span class="STYLE1">${supplier.supplierTel==0?"": supplier.supplierTel }</span></td>
+						<td><span class="STYLE1">${supplier.supplierFax==0?"": supplier.supplierFax }</span></td>
 						<td><span class="STYLE1">${supplier.supplierAddress }</span></td>
 					</tr>
 					</c:forEach>
@@ -107,20 +109,20 @@ function search() {
 		</div>
 	</div>
    <div class ="menu">
-  <table  width="860px"><tbody><tr><td>
-	<input type="button" name="first" value="首页" class="button" onclick="gofirst()"/>
-	<input type="button" name="forward" value="上一页" class="button" onclick="goforward()"/>
-	<input type="button" name="next" value="下一页" class="button" onclick="gonext()"/>
-	<input type="button" name="last" value="末页" class="button" onclick="golast()"/>
-	&nbsp;当前第${page.currPage}页，共${page.totalPage}页&nbsp;
+   <table  width="1200px"><tbody><tr><td>
+	<input type="button" name="first" value="${displaykey['common.toppage']}" class="button" onclick="gofirst()"/>
+	<input type="button" name="forward" value="${displaykey['common.previouspage']}" class="button" onclick="goforward()"/>
+	<input type="button" name="next" value="${displaykey['common.nextpage']}" class="button" onclick="gonext()"/>
+	<input type="button" name="last" value="${displaykey['common.lastpage']}" class="button" onclick="golast()"/>
+	&nbsp;${displaykey['common.currpage']}:${page.currPage}，${displaykey['common.totalpage']}:${page.totalPage}&nbsp;
 	<input type ="text" id="page" name="currPage" value="${page.currPage}" class="input-text" style="width:30px"/>
-	<input type="button" name="any" value="跳转" class="button" onclick="goany()"/>
-	每页显示&nbsp;
+	<input type="button" name="any" value="${displaykey['common.go']}" class="button" onclick="goany()"/>
+	${displaykey['common.itemsperpage']}:
 	<select id="itemsPerPage" name="itemsPerPage" class="input-text" onchange="changeItemsPerPage()">
 	<option value="5" ${page.itemsPerPage==5?'selected':''}>5</option>
 	<option value="10" ${page.itemsPerPage==10?'selected':''}>10</option>
 	<option value="20" ${page.itemsPerPage==20?'selected':''}>20</option>
-	</select>&nbsp;条
+	</select>&nbsp;
 	</td></tr></tbody></table>
 	</div>
 	</form>

@@ -67,7 +67,7 @@ function sub() {
  }
 }
 function def(){
-	var isdef=confirm("${displaykey['systemsetting.todefault']}");
+	var isdef=confirm("${displaykey['common.todefault']}");
 	if(isdef){
 	xmlhttp.open("POST", "defaultSetting", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

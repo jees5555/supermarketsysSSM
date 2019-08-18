@@ -64,7 +64,7 @@ function search() {
 <body>
 <form id="billform" method="get" action="billList">
 	<div class="menu">
-	<table width="1000px"><tbody>
+	<table width="1200px"><tbody>
 	<tr><td>${displaykey['bill.productname']}：<input type="text" name="productName"
 				value="${productName==null?'':productName }" class="input-text" />&nbsp;&nbsp;&nbsp;&nbsp;
 			${displaykey['bill.paystatus']}：<select name="payStatus" class="input-text">
@@ -117,7 +117,7 @@ function search() {
 	</div>
   </div>
   <div class ="menu">
-  <table  width="1000px"><tbody><tr><td>
+  <table  width="1200px"><tbody><tr><td>
 	<input type="button" name="first" value="${displaykey['common.toppage']}" class="button" onclick="gofirst()"/>
 	<input type="button" name="forward" value="${displaykey['common.previouspage']}" class="button" onclick="goforward()"/>
 	<input type="button" name="next" value="${displaykey['common.nextpage']}" class="button" onclick="gonext()"/>

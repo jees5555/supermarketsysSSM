@@ -58,12 +58,12 @@ table { border-collapse:collapse; }
 	overflow:visible;
 }
 
-.main { width:1000px; padding:0 10px; }
+.main { width:1200px; padding:0 10px; }
 
 .optitle { padding:10px 0; border-bottom:2px solid #666666; }
 .optitle .title { line-height:30px; font-size:24px; font-weight:bold; color:#666666; }
 .optitle em { float:right; }
-.content { width:1000px; padding:10px; margin:10px 0; background:#92d1f4; }
+.content { width:1200px; padding:10px; margin:10px 0; background:#92d1f4; }
 .content table { width:100%; background:#fff; }
 .content table td { padding:2px 4px; }
 .content table.list td { border:1px solid #666; text-align:center; }

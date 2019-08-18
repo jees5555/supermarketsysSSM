@@ -14,9 +14,9 @@
 <context:component-scan base-package="com.github.jees5555.supermarketsysSSM.web.controllers,com.github.jees5555.supermarketsysSSM.web.view" />
 
 <!-- 映射静态资源 **代码多级子目录 不推荐 会被拦截-->
-<!-- <mvc:resources location="/css/" mapping="/css/**"/>
+<mvc:resources location="/css/" mapping="/css/**"/>
 <mvc:resources location="/js/" mapping="/js/**"/>
-<mvc:resources location="/images/" mapping="/images/**"/> -->
+<mvc:resources location="/images/" mapping="/images/**"/>
 
 <!-- 自动配置注解映射器和注解适配器 -->
 <mvc:annotation-driven>
@@ -45,10 +45,20 @@
 <mvc:interceptors>
 	<mvc:interceptor>
 			<mvc:mapping path="/**"/>
+			<bean class="com.github.jees5555.supermarketsysSSM.intercepter.CharIntercepter"/>
+     </mvc:interceptor>
+	<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/images/**"/>
 			<bean class="com.github.jees5555.supermarketsysSSM.intercepter.LoginIntercepter"/>
      </mvc:interceptor>
      <mvc:interceptor>
 			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/images/**"/>
 			<bean class="com.github.jees5555.supermarketsysSSM.intercepter.PermissionInterceptor"/>
      </mvc:interceptor>
 </mvc:interceptors>

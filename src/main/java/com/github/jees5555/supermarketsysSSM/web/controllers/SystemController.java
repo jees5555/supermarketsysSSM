@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.jees5555.supermarketsysSSM.entity.Setting;
-import com.github.jees5555.supermarketsysSSM.util.CookieUtil;
+import com.github.jees5555.supermarketsysSSM.util.ServletUtil;
 import com.github.jees5555.supermarketsysSSM.util.LanguageUtil;
 
 import static com.github.jees5555.supermarketsysSSM.constants.OperateContants.*;
@@ -21,12 +21,12 @@ import javax.servlet.http.HttpSession;
 public class SystemController {
 	@RequestMapping("toSystemSetting")
 	public String userSetting(Model model,HttpServletRequest request){
-		Cookie billSkip=CookieUtil.getCookieByName(request,"billSkip");
-		Cookie supplierSkip=CookieUtil.getCookieByName(request,"supplierSkip");
-		Cookie userSkip=CookieUtil.getCookieByName(request,"userSkip");
-		Cookie billItemsPerPage=CookieUtil.getCookieByName(request,"billItemsPerPage");
-		Cookie supplierItemsPerPage=CookieUtil.getCookieByName(request,"supplierItemsPerPage");
-		Cookie userItemsPerPage=CookieUtil.getCookieByName(request,"userItemsPerPage");
+		Cookie billSkip=ServletUtil.getCookieByName(request,"billSkip");
+		Cookie supplierSkip=ServletUtil.getCookieByName(request,"supplierSkip");
+		Cookie userSkip=ServletUtil.getCookieByName(request,"userSkip");
+		Cookie billItemsPerPage=ServletUtil.getCookieByName(request,"billItemsPerPage");
+		Cookie supplierItemsPerPage=ServletUtil.getCookieByName(request,"supplierItemsPerPage");
+		Cookie userItemsPerPage=ServletUtil.getCookieByName(request,"userItemsPerPage");
 		if(billSkip!=null){
 		model.addAttribute("billSkip",billSkip.getValue());
 		}
@@ -58,25 +58,25 @@ public class SystemController {
 		Integer supplierItemsPerPage=setting.getSupplierItemsPerPage();
 		Integer userItemsPerPage = setting.getUserItemsPerPage();
 		if(billSkip!=null){
-		CookieUtil.addCookie(response, "billSkip",billSkip.toString() ,Integer.MAX_VALUE);
+		ServletUtil.addCookie(response, "billSkip",billSkip.toString() ,Integer.MAX_VALUE);
 		}
 		if(supplierSkip!=null){
-		CookieUtil.addCookie(response, "supplierSkip",supplierSkip.toString() , Integer.MAX_VALUE);
+		ServletUtil.addCookie(response, "supplierSkip",supplierSkip.toString() , Integer.MAX_VALUE);
 		}
 		if(userSkip!=null){
-		CookieUtil.addCookie(response, "userSkip",userSkip.toString(), Integer.MAX_VALUE);
+		ServletUtil.addCookie(response, "userSkip",userSkip.toString(), Integer.MAX_VALUE);
 		}
 		if(billItemsPerPage!=null){
-		CookieUtil.addCookie(response, "billItemsPerPage", billItemsPerPage.toString(), Integer.MAX_VALUE);
+		ServletUtil.addCookie(response, "billItemsPerPage", billItemsPerPage.toString(), Integer.MAX_VALUE);
 		}
 		if(supplierItemsPerPage!=null){
-		CookieUtil.addCookie(response, "supplierItemsPerPage",supplierItemsPerPage.toString(), Integer.MAX_VALUE);
+		ServletUtil.addCookie(response, "supplierItemsPerPage",supplierItemsPerPage.toString(), Integer.MAX_VALUE);
 		}
 		if(userItemsPerPage!=null){
-		CookieUtil.addCookie(response, "userItemsPerPage",userItemsPerPage.toString(), Integer.MAX_VALUE);
+		ServletUtil.addCookie(response, "userItemsPerPage",userItemsPerPage.toString(), Integer.MAX_VALUE);
 		}
 		if(language!=null&&!language.equals("")){
-			CookieUtil.addCookie(response, "language",language, Integer.MAX_VALUE);
+			ServletUtil.addCookie(response, "language",language, Integer.MAX_VALUE);
 			session.setAttribute("language", language);
 		}else{
 			return FAILURE.getName();
@@ -86,12 +86,12 @@ public class SystemController {
 	@RequestMapping("defaultSetting")
 	@ResponseBody
 	public String defaultSetting(HttpServletResponse response){
-		CookieUtil.removeCookieByName(response, "billSkip");
-		CookieUtil.removeCookieByName(response, "supplierSkip");
-		CookieUtil.removeCookieByName(response, "userSkip");
-		CookieUtil.removeCookieByName(response, "billItemsPerPage");
-		CookieUtil.removeCookieByName(response, "supplierItemsPerPage");
-		CookieUtil.removeCookieByName(response, "userItemsPerPage");
+		ServletUtil.removeCookieByName(response, "billSkip");
+		ServletUtil.removeCookieByName(response, "supplierSkip");
+		ServletUtil.removeCookieByName(response, "userSkip");
+		ServletUtil.removeCookieByName(response, "billItemsPerPage");
+		ServletUtil.removeCookieByName(response, "supplierItemsPerPage");
+		ServletUtil.removeCookieByName(response, "userItemsPerPage");
 		return SUCCESS.getName();
 	}
 }
